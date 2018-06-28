@@ -1,0 +1,38 @@
+{% extends 'layout_base.html.twig' %}
+ {% block stylesheet %}
+
+
+ {% endblock %}
+{% block titre_page %} LISTE DES PRODUITS {% endblock %}
+{% block sous_titre_page %} les produits {% endblock %}
+{% block nouveau %}<a href="{{ path('produit_new') }}">Nouveau</a>{% endblock %}
+{% block contenuprincipal %}
+
+        {% for produit in produits %}
+            <div class="col-lg-3 col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="product-img">
+                            <img src="{{ vich_uploader_asset(produit, 'imageFile') }}">
+                            <div class="pro-img-overlay">
+                                <a href="{{ path('produit_edit', {'id': produit.id}) }}" class="bg-info"><i class="ti-marker-alt"></i></a>
+                                <a href="javascript:void(0)" class="bg-danger"><i class="ti-trash"></i></a></div>
+                        </div>
+                        <div class="product-text">
+                            <span class="pro-price bg-primary">{{ produit.PrixVente }}</span>
+                            <h5 class="card-title m-b-0">{{ produit.LibelleProduit }}</h5>
+                            <small class="text-muted db"></small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+
+
+
+{% endblock %}

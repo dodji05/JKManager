@@ -1,0 +1,24 @@
+{% extends 'layout_base.html.twig' %}
+
+{% block title %}New Produit{% endblock %}
+
+{% block contenuprincipal %}
+    <div class="row">
+        <h3>
+            AJOUTER UN PRODUIT
+        </h3>
+    </div>
+    <div class="main-container">
+        <div class="row">
+            <div class="col-sm-12">
+                {#Create new Clients#}
+                {{ include('ventes/_form_ventes.html.twig') }}
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <a href="{{ path('produit_index') }}">back to list</a>
+{% endblock %}

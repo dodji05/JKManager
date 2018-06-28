@@ -1,0 +1,38 @@
+{% extends 'layout_base.html.twig' %}
+{% block titre_page %} STOCK PRODUITS {% endblock %}
+{% block sous_titre_page %} stock {% endblock %}
+{% block nouveau %}<a href="{{ path('produit_new') }}">Nouveau</a>{% endblock %}
+{% block contenuprincipal %}
+    <table class="table  table-striped">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Code</th>
+                <th>Produit</th>
+                <th>Stock </th>
+                {#<th>actions</th>#}
+            </tr>
+        </thead>
+        <tbody>
+        {% for produit in produits %}
+            <tr>
+                <td> <img src="{{ vich_uploader_asset(produit.produits, 'imageFile') }}"> </td>
+                <td>{{ produit.produits.codeproduit }}</td>
+                <td>{{ produit.produits.LibelleProduit }}</td>
+                <td>{{ produit.qteEnStock }}</td>
+
+                {#<td>#}
+                    {#<a href="{{ path('produit_show', {'id': produit.id}) }}">show</a>#}
+                    {#<a href="{{ path('produit_edit', {'id': produit.id}) }}">edit</a>#}
+                {#</td>#}
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}
