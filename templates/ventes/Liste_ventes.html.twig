@@ -1,0 +1,51 @@
+{% extends 'layout_base.html.twig' %}
+
+{% block titre_page %} LISTE DES VENTES {% endblock %}
+{% block sous_titre_page %} Les ventes {% endblock %}
+{% block nouveau %}<a href="{{ path('vente') }}">Nouveau</a>{% endblock %}
+
+{% block contenuprincipal %}
+    <div class=" main-container table-container" >
+
+
+
+        <table class="table">
+            <thead>
+            <tr>
+
+                <th> Date </th>
+                <th>Client</th>
+                <th>Telephone</th>
+                <th>Montant</th>
+
+                <th>actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for vente in ventes|sort %}
+                <tr>
+
+                    <td>{{ vente.dateVente|date('d-m-Y') }}</td>
+                    <td>{{ vente.client.nomClient ~" "~vente.client.prenomClient }}</td>
+                    <td>{{ vente.client.Telephone1 }}</td>
+                    {% set totaux = 0 %}
+                    <td>
+                        {% for ligne in vente.ligneVentes %}
+                            {%  set totaux = totaux+ (ligne.Quantite * ligne.PrixVente) %}
+                        {% endfor %}
+                        {{ totaux|number_format(0, ' ', ' ') }}
+                    </td>
+                    <td>
+                        Details de la facture
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="8">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}

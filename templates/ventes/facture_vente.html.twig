@@ -1,0 +1,92 @@
+{% extends 'layout_base.html.twig' %}
+
+{% block titre_page %} Nouvelle vente {% endblock %}
+{% block sous_titre_page %} vente  {% endblock %}
+{% block nouveau %}<a href="{{ path('produit_new') }}">nouvelle vente</a>{% endblock %}
+{% block contenuprincipal %}
+
+    <div class="main-container">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h3><b>Facture</b> <span class="pull-right">#{{ vente.id }}</span></h3>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="pull-left">
+                                    <address>
+                                        <h3> &nbsp;<b class="text-success">JINUKUN</b></h3>
+                                        <p class="text-muted m-l-5"><p class="m-t-30"><b>RCCM : </b>MB-COT-18B21694
+                                            <br/> <p class="m-t-10"><b>IFU :</b> 3201810308915
+                                            <br/>  <p class="m-t-10"><b>Contact : </b>95 55 04 55 /95 22 63 36
+
+                                    </address>
+                                </div>
+                                <div class="pull-right text-right">
+
+
+
+                                    <address>
+                                        <h3>To</h3>
+                                        <h4 class="font-bold">{{ vente.client.nomClient ~" "~vente.client.prenomClient }}</h4>
+                                        <p class="text-muted m-l-30">
+                                            <br/> {{ vente.client.telephone1 }}
+                                            <br/> {{ vente.client.zoneGeographique }}
+
+                                        <p class="m-t-30"><b> Date :</b> <i class="fa fa-calendar"></i> {{ vente.dateVente|date('d-m-Y') }}</p>
+
+                                    </address>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="table-responsive m-t-40">
+                                    <table class="table table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th class="text-center">#</th>
+                                            <th>Produit</th>
+                                            <th class="text-right">Quantité</th>
+                                            <th class="text-right">Prix unitaire</th>
+                                            <th class="text-right">Total</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% set totaux = 0 %}
+                                        {% for ligne in vente.ligneVentes %}
+                                            {% set totaux = totaux + (ligne.PrixVente * ligne.Quantite)%}
+                                        <tr>
+                                            <td class="text-center">{{ loop.index }}</td>
+                                            <td> {{ ligne.Produit.LibelleProduit }}</td>
+                                            <td class="text-right">{{ ligne.Quantite }} </td>
+                                            <td class="text-right"> {{ (ligne.PrixVente) |number_format(0, ' ', ' ')}} </td>
+                                            <td class="text-right"> {{ (ligne.PrixVente * ligne.Quantite)|number_format(0, ' ', ' ') }}</td>
+                                        </tr>
+                                        {% endfor %}
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="pull-right m-t-30 text-right">
+                                    {#<p>Sub - Total amount: $13,848</p>#}
+                                    {#<p>vat (10%) : $138 </p>#}
+                                    {#<hr>#}
+                                    <h3><b>Total :</b> {{ totaux|number_format(0, ' ', ' ') }}</h3>
+                                </div>
+                                <div class="clearfix"></div>
+                                <hr>
+                                {#<div class="text-right">#}
+                                    {#<button class="btn btn-danger" type="submit"> Proceed to payment </button>#}
+                                    {#<button onClick="javascript:window.print();" class="btn btn-default btn-outline" type="button"> <span><i class="fa fa-print"></i> Print</span> </button>#}
+                                {#</div>#}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

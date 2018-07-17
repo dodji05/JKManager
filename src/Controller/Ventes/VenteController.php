@@ -21,7 +21,7 @@ use Symfony\Component\HttpFoundation\Request;
 class VenteController extends Controller
 {
     /**
-     * @Route("/vente")
+     * @Route("/vente", name="vente")
      */
     function Vente(Request $request){
         $doctrine = $this->getDoctrine();
@@ -32,27 +32,25 @@ class VenteController extends Controller
     $vente->addLigneVente($ligne);
         $client = new Clients();
         $form = $this->createForm(VentesType::class, $vente)
+
             ->add('client', ClientsType::class, array('data' => $client, 'mapped' => false,));
         $form->handleRequest($request);
 
         // On recupere les informations sur le stock du produit
         $repository2 = $doctrine->getRepository('App:StockProduits');
+        $repclients = $doctrine->getRepository('App:Clients');
 
         if ($form->isSubmitted() && $form->isValid()) {
 
             $em = $this->getDoctrine()->getManager();
 
             foreach ($form->getData()->getligneVentes() as $ligneVente) {
-//                $repository_pr = $doctrine->getRepository('Produit');
-//                $code = $ligneVente->getProduit();//()->getId();
-//                $produit = $repository_pr->findOneBy(array('id'=> $code));
-//                $ligneVente = $ligneVente->setProduit($produit);
-
+//
                 // on recupere le produit concernant la vente
-                $majstock = $repository2->findOneBy(array('id'=> $ligneVente->getProduit()) );
+                $majstock = $repository2->findOneBy(array('Produits'=> $ligneVente->getProduit()) );
 
                 //on effectue le destockage
-                $stockactuel = $majstock->getQteEnStock() - $ligneVente->getquantite();
+                $stockactuel = $majstock->getQteEnStock() - $ligneVente->getQuantite();
 
                 //on enregistre la nouvelle valeur
                 $majstock->setQteEnStock($stockactuel);
@@ -64,13 +62,59 @@ class VenteController extends Controller
 
 
             }
-            $vente->setClient($client);
-            $em->persist($vente);
-            $em->flush();
+        $telclient = $request->get('ventes')['client']["Telephone1"];
+            // on verifie si le client existe deja dans la base de donnnee
+            $clientdeja = $repclients->findOneBy(array('Telephone1'=>$telclient) );
+            if(!$clientdeja){
+                // il n existe pas , nous le sauvergadons dans la base
+                $vente->setClient($client);
+                $em->persist($vente);
+                $em->flush();
+            }
+            else {
+                $vente->setClient($clientdeja);
+                $em->persist($vente);
+                $em->detach($client);
+                $em->flush();
+            }
+
+            $this->addFlash('notice','La vente a été enregistrée avec sucess ');
+            return $this->redirectToRoute('facture',array('id_vente'=>$vente->getId()));
 
         }
         return $this->render('ventes/nouvelle_vente.html.twig', array(
             'form' => $form->createView(),
         ));
     }
+
+    /**
+     * @Route("/vente/facture/{id_vente}",name="facture")
+     */
+    function Facture (Request $request,$id_vente){
+        $doctrine = $this->getDoctrine();
+
+        //on recupere la vente
+        $repository1 = $doctrine->getRepository('App:Ventes');
+        $vente = $repository1->findOneBy(array('id' => $id_vente,));
+        return $this->render('ventes/facture_vente.html.twig', array(
+
+            'vente' => $vente
+        ));
+    }
+
+    /**
+     * @Route("/ventes",name="toute_vente")
+     */
+    function TousLesVentes (){
+        $doctrine = $this->getDoctrine();
+
+        //on recupere la vente
+        $repository1 = $doctrine->getRepository('App:Ventes');
+        $ventes = $repository1->findAll();
+        return $this->render('ventes/Liste_ventes.html.twig', array(
+
+            'ventes' => $ventes
+        ));
+    }
+
 }

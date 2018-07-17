@@ -1,24 +1,118 @@
 {% extends 'layout_base.html.twig' %}
 
-{% block title %}New Produit{% endblock %}
-
+{% block titre_page %} Nouvelle vente {% endblock %}
+{% block sous_titre_page %} vente  {% endblock %}
+{% block nouveau %}<a href="{{ path('produit_new') }}">nouvelle vente</a>{% endblock %}
 {% block contenuprincipal %}
-    <div class="row">
-        <h3>
-            AJOUTER UN PRODUIT
-        </h3>
-    </div>
+
     <div class="main-container">
         <div class="row">
-            <div class="col-sm-12">
+            <div class="col-sm-12 table-responsive">
                 {#Create new Clients#}
                 {{ include('ventes/_form_ventes.html.twig') }}
             </div>
 
         </div>
     </div>
+{% endblock %}
+{% block javascript%}
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+<script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+    <script>
+
+    jQuery(document).ready(function() {
+        $("body").delegate("#addItem", "click", addItem)
+
+    });
+
+function addItem (e){
+
+    var $detalles = $("#ventes_ligneVentes");
+    var $test  = $("#ventes_ligneVentes").find('table').find('tbody');
+    // var $detalles = $("#scom_bundle_ventes_type_vente").closest('tbody');
+    var $index = $detalles.children().length;
+    var $index2 = $test.children().length;
+    // var $detalle = $detalles.attr("data-prototype").replace(/__name__/g, $index).replace(/__num__/g, $index);
+    var $detalle = $detalles.attr("data-prototype").replace(/__name__/g, $index2).replace(/__num__/g, $index2);
+    //  var $test  = $("#scom_bundle_ventes_type_vente").find('table').find('tbody');
+    //  alert('$test')
+    // $detalles.append( $detalle);
+    $test.append( $detalle)
+};
+
+function remplissage_prix(e, elem){
+    e.preventDefault();
+    var tel = $(elem).val();
+    var parent = $(elem).closest('tr');
+   // alert(tel);
+    // if(tel.length > 3){
+    $.ajax({
+        type: 'get',
+        url: Routing.generate('produit_ajax', {id: tel}),
+        dataType: "json",
+        // data: {
+        //     term: request.term
+        // },
+        success: function (data) {
+            parent.find('.vente_prix').val(data.prix);
+
+        }
+    })
+    // }
+
+}
+function quantity_calculate(item) {
+    var quantity    = $(".vente_qte_" + item).val();
+    var price_item  = $("#price_item_" + item).val();
+    // var discount    = $("#discount_" + item).val();
+    // var total_tax   = $("#total_tax_" + item).val();
+    // var total_discount = $("#total_discount_" + item).val();
+    // var dis_type    = $("#discount_type_" + item).val();
+
+
+    if (quantity > 0 ) {
+
+        var price = quantity * price_item;
+        $("#total_price_" + item).val(price);
 
 
 
-    <a href="{{ path('produit_index') }}">back to list</a>
+    }else {
+        var n = quantity * price_item;
+        var c = quantity * price_item * total_tax;
+        $("#total_price_" + item).val(n),
+        $("#all_tax_" + item).val(c)
+    }
+    // calculateSum();
+    // invoice_paidamount();
+}
+   function calculetotal (e, elem){
+            var code = $(elem).val();
+            var parent = $(elem).closest('tr');
+            var qte =  parent.find('.vente_qte').val();
+            var prix = parent.find('.vente_prix').val()
+            var ss = parent.find('.vente_ss_total').val();
+             var total= qte * prix;
+
+//            var sousBV = qte * bv;
+            parent.find('.vente_ss_total').val(total);
+            var sum = 0;
+            var sumBV = 0;
+            $(".vente_ss_total").each(function () {
+                if (!isNaN(this.value) && this.value.length !== 0) {
+                    sum += parseFloat(this.value);
+                    sumBV += total;
+                }
+
+
+
+        });
+
+               $("#grandTotal").val(sum.toFixed(2));
+            $(".totalBV").val( sumBV);
+        }
+
+
+</script>
 {% endblock %}

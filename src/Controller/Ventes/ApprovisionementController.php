@@ -29,47 +29,13 @@ class ApprovisionementController extends Controller
      */
     public function index(Request $request): Response
     {
-        //$originalfillieul = new ArrayCollection();
+       $appro =  new Approvisionement();
+       $ligne = new DetailsAppro();
+       $ligne->setFournisseur($appro);
+       $appro->getDetailsAppros()->add($ligne);
 
-       // $fillieul = new Membres();
-
-        $appro = new Approvisionement();
-        $detailsAppro = new DetailsAppro();
-        $appro->addDetailsAppro($detailsAppro);
-        $stockMagasin = new StockProduits();
-
-        $form = $this->createForm(ApprovisionementType::class, $appro);
-        $form->handleRequest($request);
-
-        $doctrine = $this->getDoctrine();
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            foreach ($form->getData()->getDetailsAppros() as $ligneAppro) {
-
-                //On met a jour le stock
-                    // On verifie si le produit est deja en magasin
-                $stockproduit = $doctrine->getRepository('App:StockProduits')->findOneBy(array('Produits'=>$ligneAppro->getProduit()));
-
-
-                if($stockproduit === null){
-                    // si le produit n'existe pas on creer une nouvelle entre du produit
-                    $stockMagasin->setProduits($ligneAppro->getProduit());
-                    $stockMagasin->setQteEnStock($ligneAppro->getQuantite());
-                    $em->persist($stockMagasin);
-                }
-                else{
-                    // s'il existe on fait une mise de la quantite
-                    $nouveaustock =  $stockproduit->getQteEnStock()  + $ligneAppro->getQuantite();
-                    $stockproduit->setEnQteStock( $nouveaustock);
-                    $em->persist($stockproduit);
-                }
-                $em->persist($detailsAppro);
-
-
-            }
-            $em->persist($appro);
-            $em->flush();
-        }
+       $form = $this->createForm(ApprovisionementType::class, $appro);
+       $form->handleRequest($request);
 
         // return $this->render('clients/index.html.twig', ['clients' => $clientsRepository->findAll()]);
         return $this->render('details_appro/new.html.twig', array(

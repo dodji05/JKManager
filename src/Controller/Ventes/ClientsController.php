@@ -36,7 +36,7 @@ class ClientsController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($client);
             $em->flush();
-
+            $this->addFlash('notice','Le client '.$client->getNomClient(). ' a ete ajoute avec success!');
             return $this->redirectToRoute('clients_index');
         }
 
@@ -65,6 +65,7 @@ class ClientsController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
+            $this->addFlash('notice','Les informations du  '.$client->getNomClient(). ' ont ete modifie avec success!');
             return $this->redirectToRoute('clients_edit', ['id' => $client->getId()]);
         }
 
@@ -84,7 +85,7 @@ class ClientsController extends Controller
             $em->remove($client);
             $em->flush();
         }
-
+        $this->addFlash('notice','Le client  '.$client->getNomClient(). ' ont ete supprime avec success!');
         return $this->redirectToRoute('clients_index');
     }
 }

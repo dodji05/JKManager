@@ -1,0 +1,113 @@
+{% extends 'layout_base.html.twig' %}
+
+{% block titre_page %} NOUVEL APPROVISIONNEMENT {% endblock %}
+{% block sous_titre_page %} produits/fournisseur {% endblock %}
+{% block nouveau %}<a href="{{ path('details_appro_new') }}">Nouveau</a>{% endblock %}
+
+ {% block contenuprincipal %}
+    {{ include('details_appro/_form.html.twig') }}
+
+    <a href="{{ path('details_appro_index') }}">back to list</a>
+{% endblock %}
+{% block javascript %}
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+<script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+    <script>
+    function Maj () {
+    // ... retrieve the corresponding form.
+  var $form = $(this).closest('form');
+  // Simulate form data, but only include the selected sport value.
+  var data = {};
+  data[$sport.attr('name')] = $sport.val();
+  // Submit data via AJAX to the form's action path.
+  $.ajax({
+    url : $form.attr('action'),
+    type: $form.attr('method'),
+    data : data,
+    success: function(html) {
+      // Replace current position field ...
+      $('#details_appro_Fournisseur').replaceWith(
+        // ... with the returned one from the AJAX response.
+        $(html).find('#details_appro_Fournisseur')
+      );
+      // Position field now displays the appropriate positions.
+    }
+  })
+
+ }
+
+    jQuery(document).ready(function() {
+        $("body").delegate("#addItem", "click", addItem)
+
+    });
+
+
+function addItem (e){
+
+    var $detalles = $("#approvisionement_detailsAppros");
+    var $test  = $("#approvisionement_detailsAppros").find('table').find('tbody');
+    // var $detalles = $("#scom_bundle_ventes_type_vente").closest('tbody');
+    var $index = $detalles.children().length;
+    var $index2 = $test.children().length;
+    // var $detalle = $detalles.attr("data-prototype").replace(/__name__/g, $index).replace(/__num__/g, $index);
+    var $detalle = $detalles.attr("data-prototype").replace(/__name__/g, $index2).replace(/__num__/g, $index2);
+    //  var $test  = $("#scom_bundle_ventes_type_vente").find('table').find('tbody');
+    //  alert('$test')
+    // $detalles.append( $detalle);
+    $test.append( $detalle)
+};
+
+function remplissage_fournisseur(e, elem){
+    e.preventDefault();
+    var tel = $('#fournisseurs_prix_TelephoneFournisseur').val();
+  //  var parent = $(elem).closest('tr');
+     alert(tel);
+   // if(tel.length > 3){
+        $.ajax({
+            type: 'get',
+            url: Routing.generate('fournisseur_auto', {tel: tel}),
+            dataType: "json",
+            // data: {
+            //     term: request.term
+            // },
+            success: function (data) {
+                $('#fournisseurs_prix_NomFournisseur').val(data.Nom);
+                $('#fournisseurs_prix_PrenomFournisseur').val(data.Prenom);
+                $('#fournisseurs_prix_SituationGeographique').val(data.SituationGeo);
+
+            }
+        })
+   // }
+
+}
+
+<script>
+var $sport = $('#details_appro_Produit');
+// When sport gets selected ...
+$sport.change(function() {
+    alert(ok),
+  // ... retrieve the corresponding form.
+  var $form = $(this).closest('form');
+  // Simulate form data, but only include the selected sport value.
+  var data = {};
+  data[$sport.attr('name')] = $sport.val();
+  // Submit data via AJAX to the form's action path.
+  $.ajax({
+    url : $form.attr('action'),
+
+    type: $form.attr('method'),
+    data : data,
+    success: function(html) {
+      // Replace current position field ...
+      $('#details_appro_Fournisseur').replaceWith(
+        // ... with the returned one from the AJAX response.
+        $(html).find('#details_appro_Fournisseur')
+      );
+      // Position field now displays the appropriate positions.
+    }
+  });
+});
+
+</script>
+{% endblock %}
