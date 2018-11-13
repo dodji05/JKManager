@@ -10,9 +10,9 @@
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">
-    <title>Elite Admin Template - The Ultimate Multipurpose admin template</title>
+    <title> JINUKUN MANAGER</title>
     <!-- Custom CSS -->
-    <link href="{{ asset('build/layout.css') }}" rel="stylesheet" />
+    <link href="{{ asset('build/layout.css') }}" rel="stylesheet"/>
     {% block stylesheet %}
 
 
@@ -35,17 +35,19 @@
         <b>
             <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
             <!-- Dark Logo icon -->
-            <img src="{{ asset('images/application/logo_sans_fond.png') }}" alt="homepage" class="dark-logo" />
+            <img src="{{ asset('images/application/logo_sans_fond.png') }}" alt="homepage" class="dark-logo"/>
             <!-- Light Logo icon -->
-            <img src="{{ asset('images/application/logo_sans_fond.png') }}" alt="homepage" class="light-logo" />
+            <img src="{{ asset('images/application/logo_sans_fond.png') }}" alt="homepage" class="light-logo"/>
         </b>
         <!--End Logo icon -->
         <!-- Logo text -->
         <span>
                                                     <!-- dark Logo text -->
-                                                    <img src="{{ asset('images/application/logo.png') }}" alt="homepage" class="dark-logo" />
+                                                    <img src="{{ asset('images/application/logo.png') }}" alt="homepage"
+                                                         class="dark-logo"/>
             <!-- Light Logo text -->
-                                                    <img src="{{ asset('images/application/logo.png') }}" class="light-logo" alt="homepage" />
+                                                    <img src="{{ asset('images/application/logo.png') }}"
+                                                         class="light-logo" alt="homepage"/>
                                                 </span>
     </a>
 </div>
@@ -64,15 +66,19 @@
             <div class="user-pro-body">
                 <div><img src="{{ asset('images/application/logo.png') }}" alt="user-img" class="img-circle"></div>
                 <div class="dropdown">
-                    <a href="javascript:void(0)"class="dropdown-toggle u-dropdown link hide-menu" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{% block utilisateur %} JINUKUN {% endblock %}<span class="caret"></span></a>
+                    <a href="javascript:void(0)" class="dropdown-toggle u-dropdown link hide-menu"
+                       data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">{% block utilisateur %} JINUKUN {% endblock %}<span
+                                class="caret"></span></a>
                     <div class="dropdown-menu animated flipInY">
                         <!-- text-->
-                        <a href="javascript:void(0)"class="dropdown-item"><i class="ti-user"></i> My Profile</a>
+                        <a href="javascript:void(0)" class="dropdown-item"><i class="ti-user"></i> My Profile</a>
                         <!-- text-->
-                                              <!-- text-->
+                        <!-- text-->
                         <div class="dropdown-divider"></div>
                         <!-- text-->
-                        <a href="javascript:void(0)"class="dropdown-item"><i class="ti-settings"></i> Account Setting</a>
+                        <a href="javascript:void(0)" class="dropdown-item"><i class="ti-settings"></i> Account
+                            Setting</a>
                         <!-- text-->
                         <div class="dropdown-divider"></div>
                         <!-- text-->
@@ -86,45 +92,52 @@
         <nav class="sidebar-nav">
             <ul id="sidebarnav">
                 <li class="nav-small-cap">--- VENTES</li>
-                <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)"aria-expanded="false"><i class="ti-layout-grid2"></i><span class="hide-menu">VENTES</span></a>
+                <li><a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i
+                                class="ti-layout-grid2"></i><span class="hide-menu">VENTES</span></a>
                     <ul aria-expanded="false" class="collapse">
                         <li><a href="{{ path('vente') }}">Nouvelle vente</a></li>
                         <li><a href="{{ path('toute_vente') }}">Liste des ventes</a></li>
-                        <li><a href="{{ path('stock_produit') }}">Stats Clients</a></li>
+                        <li><a href="{{ path('stats_produit_vendus_fournisseur') }}">Ventes par founisseur</a></li>
+                        <li><a href="{{ path('stats_produit_vendus') }}">Ventes par produits</a></li>
 
                     </ul>
                 </li>
-                <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)"aria-expanded="false"><i class="icon-speedometer"></i><span class="hide-menu">PRODUITS </span></a>
+                <li><a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i
+                                class="icon-speedometer"></i><span class="hide-menu">PRODUITS </span></a>
                     <ul aria-expanded="false" class="collapse">
                         <li><a href="{{ path('produit_new') }}">Nouveau </a></li>
                         <li><a href="{{ path('produit_index') }}">Liste des produits</a></li>
                         <li><a href="{{ path('stock_produit') }}">Stock</a></li>
+                        <li><a href="{{ path('stats_produit_vendus') }}">Stats</a></li>
 
                     </ul>
                 </li>
-                <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)"aria-expanded="false"><i class="ti-layout-grid2"></i><span class="hide-menu">CLIENTS</span></a>
+                <li><a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i
+                                class="ti-layout-grid2"></i><span class="hide-menu">CLIENTS</span></a>
                     <ul aria-expanded="false" class="collapse">
                         <li><a href="{{ path('clients_new') }}">Nouveau client</a></li>
                         <li><a href="{{ path('clients_index') }}">Liste des clients</a></li>
-                        <li><a href="{{ path('stock_produit') }}">Stats Clients</a></li>
+                        {#<li><a href="{{ path('stock_produit') }}">Stats Clients</a></li>#}
 
                     </ul>
                 </li>
-                <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)"aria-expanded="false"><i class="ti-email"></i><span class="hide-menu">FOURNISSEURS</span></a>
+                <li><a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i
+                                class="ti-email"></i><span class="hide-menu">FOURNISSEURS</span></a>
                     <ul aria-expanded="false" class="collapse">
                         <li><a href="{{ path('fournisseurs_new') }}">Nouveau fournisseur</a></li>
                         <li><a href="{{ path('fournisseurs_index') }}">liste des fournisseur</a></li>
-                        <li><a href="{{ path('produits_fournisseurs_new') }}">Produits - Fournisseurs </a></li>
+                        <li><a href="{{ path('stats_produit_vendus_fournisseur') }}">Ventes par founisseur</a></li>
                     </ul>
                 </li>
-                <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)"aria-expanded="false"><i class="ti-email"></i><span class="hide-menu">APPROVISIONNEMENT</span></a>
+                <li><a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i
+                                class="ti-email"></i><span class="hide-menu">APPROVISIONNEMENT</span></a>
                     <ul aria-expanded="false" class="collapse">
                         <li><a href="{{ path('details_appro_new') }}">Nouvel approvisionnement</a></li>
                         <li><a href="{{ path('fournisseurs_index') }}">historique</a></li>
                         <li><a href="{{ path('produits_fournisseurs_new') }}">Produits - Fournisseurs </a></li>
                     </ul>
                 </li>
-                </ul>
+            </ul>
         </nav>
         <!-- End Sidebar navigation -->
     </div>
@@ -135,97 +148,91 @@
 <!-- ============================================================== -->
 
 <!-- ============================================================== -->
-                                        <!-- Page wrapper  -->
-                                        <!-- ============================================================== -->
-                                        <div class="page-wrapper">
-                                            <!-- ============================================================== -->
-                                            <!-- Container fluid  -->
-                                            <!-- ============================================================== -->
-                                            <div class="container-fluid">
-                                                <!-- ============================================================== -->
-                                                <!-- Bread crumb and right sidebar toggle -->
-                                                <!-- ============================================================== -->
-                                                <div class="row page-titles">
-                                                    <div class="col-md-5 align-self-center">
-                                                        <h4 class="text-themecolor">{% block titre_page %} {% endblock %}</h4>
-                                                    </div>
-                                                    <div class="col-md-7 align-self-center text-right">
-                                                        <div class="d-flex justify-content-end align-items-center">
-                                                            <ol class="breadcrumb">
-                                                                <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                                                                <li class="breadcrumb-item active">{% block sous_titre_page %} {% endblock %}</li>
-                                                            </ol>
-                                                            <button type="button" class="btn btn-info d-none d-lg-block m-l-15"><i class="fa fa-plus-circle"></i> {% block nouveau %} Nouveau {% endblock %}</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- ============================================================== -->
-                                                <!-- End Bread crumb and right sidebar toggle -->
-                                                <!-- ============================================================== -->
-                                                <!-- ============================================================== -->
-                                                <!-- Start Page Content -->
-                                                <!-- ============================================================== -->
-                                                <div class="row">
-                                                    <div class="col-12">
-                                                        {% for message in app.flashes('notice') %}
-                                                            <div class="alert alert-info alert-rounded">
-                                                                {{ message }}
-                                                            </div>
-                                                        {% endfor %}
+<!-- Page wrapper  -->
+<!-- ============================================================== -->
+<div class="page-wrapper">
+    <!-- ============================================================== -->
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid">
+        <!-- ============================================================== -->
+        <!-- Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <div class="row page-titles">
+            <div class="col-md-5 align-self-center">
+                <h4 class="text-themecolor">{% block titre_page %} {% endblock %}</h4>
+            </div>
+            <div class="col-md-7 align-self-center text-right">
+                <div class="d-flex justify-content-end align-items-center">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                        <li class="breadcrumb-item active">{% block sous_titre_page %} {% endblock %}</li>
+                    </ol>
+                    <button type="button" class="btn btn-info d-none d-lg-block m-l-15"><i
+                                class="fa fa-plus-circle"></i> {% block nouveau %} Nouveau {% endblock %}</button>
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Start Page Content -->
+        <!-- ============================================================== -->
+        <div class="row">
+            <div class="col-12">
+                {% for message in app.flashes('notice') %}
+                    <div class="alert alert-info alert-rounded">
+                        {{ message }}
+                    </div>
+                {% endfor %}
 
-                                                        {# ...or you can read and display every flash message available #}
-                                                        {% for label, messages in app.flashes %}
-                                                            {% for message in messages %}
-                                                                <div class="alert alert-info alert-rounded">
-                                                                    {{ message }}
-                                                                </div>
-                                                            {% endfor %}
-                                                        {% endfor %}
-                                                        <div class="card">
-                                                            <div class="card-body">
+                {# ...or you can read and display every flash message available #}
+                {% for label, messages in app.flashes %}
+                    {% for message in messages %}
+                        <div class="alert alert-info alert-rounded">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+                <div class="card">
+                    <div class="card-body">
 
-                                                                {% block contenuprincipal %}
-                                                                {% endblock %}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- ============================================================== -->
-                                                <!-- End PAge Content -->
-                                                <!-- ============================================================== -->
-                                                <!-- ============================================================== -->
-                                                <!-- Right sidebar -->
-                                                <!-- ============================================================== -->
-                                                <!-- .right-sidebar -->
+                        {% block contenuprincipal %}
+                        {% endblock %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End PAge Content -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Right sidebar -->
+        <!-- ============================================================== -->
+        <!-- .right-sidebar -->
 
-                                                <!-- ============================================================== -->
-                                                <!-- End Right sidebar -->
-                                                <!-- ============================================================== -->
-                                            </div>
-                                            <!-- ============================================================== -->
-                                            <!-- End Container fluid  -->
-                                            <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- End Right sidebar -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Container fluid  -->
+    <!-- ============================================================== -->
 
-                                        </div>
-                                        <!-- ============================================================== -->
-                                        <!-- End Page wrapper  -->
-                                        <!-- ============================================================== -->
-                                        <!-- ============================================================== -->
-                                        <!-- footer -->
-                                        <!-- ============================================================== -->
-                                        <footer class="footer">
-                                            © 2018 Eliteadmin by themedesigner.in
-                                        </footer>
-                                        <!-- ============================================================== -->
-                                        <!-- End footer -->
-                                        <!-- ============================================================== -->
-                                        </div>
-                                        <!-- ============================================================== -->
-                                        <!-- End Page wrapper  -->
-                                        <!-- ============================================================== -->
+</div>
+<!-- ============================================================== -->
+<!-- End Page wrapper  -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- footer -->
+<!-- ============================================================== -->
+<footer class="footer">
+    © 2018 JKMANAGER by Click Digital
+</footer>
 
 
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript" src="{{ asset('build/perfect-scrollbar.js') }}"></script>
 <script type="text/javascript" src="{{ asset('build/barmenu.js') }}"></script>
 <script type="text/javascript" src="{{ asset('build/custom.js') }}"></script>

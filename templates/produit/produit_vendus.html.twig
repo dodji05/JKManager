@@ -1,0 +1,35 @@
+{% extends 'layout_base.html.twig' %}
+{% block titre_page %} VENTES PAR PTODUITS {% endblock %}
+{% block sous_titre_page %} les produits {% endblock %}
+{% block nouveau %}<a href="{{ path('produit_new') }}">Nouveau</a>{% endblock %}
+{% block contenuprincipal %}
+    <table class="table  table-striped">
+        <thead>
+            <tr>
+
+
+                <th>Produits</th>
+                <th>Quantites</th>
+
+            </tr>
+        </thead>
+        <tbody>
+        {% for produit in produits  %}
+            <tr>
+
+
+                <td>{{ produit.LibelleProduit }}</td>
+                <td>{{ produit.total }}</td>
+
+
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}

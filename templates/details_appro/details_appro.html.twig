@@ -1,0 +1,61 @@
+{% extends 'layout_base.html.twig' %}
+
+{% block titre_page %}  APPROVISIONNEMENT {% endblock %}
+{% block sous_titre_page %} Details de l'approvisionnenmt  {% endblock %}
+{% block nouveau %}<a href="{{ path('details_appro_new') }}"></a>{% endblock %}
+
+ {% block contenuprincipal %}
+     <div class="main-container">
+         <div class="alert alert-success">
+             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                         aria-hidden="true">×</span></button>
+             <h3 class="text-success"><i class="fa fa-check-circle"></i> Success</h3>
+             Details de l'approvisionnement
+         </div>
+         <div class="row">
+             <div class="col-sm-6 col-md-4 col-xl-3">
+                 <u> Fournisseur:</u> {{ details_appro.fournisseur.nomFournisseur }} <br/>
+                 <u> Contact:</u> {{ details_appro.fournisseur.telephoneFournisseur }} <br/>
+                 <u> Date:</u> {{ details_appro.dateAppro|date('d-m-Y') }} <br/>
+             </div>
+             <div class="col-sm-6 col-md-8 col-xl-9">
+                 <table class="table table-striped">
+                     <thead>
+                     <tr>
+                         <th>#</th>
+                         <th>Produit</th>
+                         <th>Quantite</th>
+                         <th>Prix</th>
+                         <th>Total</th>
+                     </tr>
+                     </thead>
+                     <tbody>
+                     {% for details in details_appro.detailsAppros %}
+                         <tr>
+                             <td>
+
+                             </td>
+                             <td>
+                                 {{ details.produit.libelleProduit }}
+                             </td>
+                             <td>
+                                 {{ details.quantite|number_format(0, ' ', ' ') }}
+                             </td>
+                             <td>
+                                 {{ details.prixAppro|number_format(0, ' ', ' ') }}
+                             </td>
+                             <td>
+                                 {{ (details.prixAppro * details.quantite)|number_format(0, ' ', ' ') }}
+                             </td>
+                         </tr>
+                     {% endfor %}
+                     </tbody>
+                 </table>
+
+             </div>
+         </div>
+     </div>
+
+
+     <a href="{{ path('details_appro_new') }}">Nouvel approvisionnement</a>
+ {% endblock %}

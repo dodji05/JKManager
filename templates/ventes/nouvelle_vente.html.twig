@@ -1,4 +1,7 @@
 {% extends 'layout_base.html.twig' %}
+{% block stylesheet %}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+{% endblock %}
 
 {% block titre_page %} Nouvelle vente {% endblock %}
 {% block sous_titre_page %} vente  {% endblock %}
@@ -18,11 +21,14 @@
 {% block javascript%}
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
     <script>
 
     jQuery(document).ready(function() {
         $("body").delegate("#addItem", "click", addItem)
+
+         $('.vente_id').select2();
 
     });
 
@@ -39,6 +45,7 @@ function addItem (e){
     //  alert('$test')
     // $detalles.append( $detalle);
     $test.append( $detalle)
+     $('.vente_id').select2();
 };
 
 function remplissage_prix(e, elem){
@@ -56,6 +63,35 @@ function remplissage_prix(e, elem){
         // },
         success: function (data) {
             parent.find('.vente_prix').val(data.prix);
+           // var newLink = document.createElement('a');
+
+        }
+    })
+    // }
+
+}
+
+function remplissage_client(e, elem){
+    e.preventDefault();
+    var tel = $(elem).val();
+  //  var parent = $(elem).closest('tr');
+   // alert(tel);
+    // if(tel.length > 3){
+    $.ajax({
+        type: 'get',
+        url: Routing.generate('client_recherche_ajax', {telephone: tel}),
+        dataType: "json",
+        // data: {
+        //     term: request.term
+        // },
+        success: function (data) {
+           // parent.find('.vente_prix').val(data.prix);
+            $('.client_nom').val(data.Nom);
+            $('.client_prenom').val(data.Prenom);
+            $('.client_tel2').val(data.Tel2);
+            $('.client_zone').val(data.Zone);
+            $('.client_lieu').val(data.Lieu);
+            $('.client_sexe').val(data.Sexe);
 
         }
     })

@@ -2,6 +2,7 @@
 
 const $ = require('jquery');
 global.$ = $;
+window.jQuery = $;
 require('bootstrap');
 require('popper.js')
 //require('')
@@ -12,6 +13,7 @@ import '../css/product-style.css'
 //require('../fonts/open-sans/style.min.css')
 
 import '../scss/main.scss'
+import 'popper.js'
 //require('../vendor/simplebar/simplebar.js');
 //require('../vendor/bootstrap')vendor/simplebar/simplebar.js
 

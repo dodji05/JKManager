@@ -19,7 +19,7 @@
                                 <a href="javascript:void(0)" class="bg-danger"><i class="ti-trash"></i></a></div>
                         </div>
                         <div class="product-text">
-                            <span class="pro-price bg-primary">{{ produit.PrixVente }}</span>
+                            <span class="pro-price bg-primary">{{ produit.PrixVente|number_format(0, ' ', ' ') }}</span>
                             <h5 class="card-title m-b-0">{{ produit.LibelleProduit }}</h5>
                             <small class="text-muted db"></small>
                         </div>

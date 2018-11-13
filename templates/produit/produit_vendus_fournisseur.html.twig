@@ -1,0 +1,78 @@
+{% extends 'layout_base.html.twig' %}
+{% block titre_page %} VENTES PAR FOURNISSEURS {% endblock %}
+{% block sous_titre_page %} les produits {% endblock %}
+{% block nouveau %}<a href="{{ path('produit_new') }}">Nouveau</a>{% endblock %}
+{% block contenuprincipal %}
+{% dump (produits) %}
+    {% dump (fournisseurs) %}
+        {% for fournisseur in fournisseurs  %}
+
+            <div class="alert alert-success center">  {{ fournisseur.nomFournisseur|upper }} </div>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+
+
+                    <th>Produit</th>
+                    <th>Quantite</th>
+                    <th>Prix de vente </th>
+                    {#<th>Prix fournisseurs</th>#}
+                    <th>Total</th>
+                    {#<th>Fournisseurs</th>#}
+                    {#<th>Benefice</th>#}
+
+                </tr>
+                </thead>
+
+                <tbody>
+                {% set somme =0 %}
+                {% set sommeFournisseur =0 %}
+
+    {% for produit in produits if produit.id == fournisseur.id  %}
+        <tr>
+            {#{% dump (fournisseur.Ligne) %}#}
+
+            <td>{{ produit.LibelleProduit }}</td>
+            <td>{{ produit.total |number_format(0, ' ', ' ')}}</td>
+            <td>{{ produit.PrixVente |number_format(0, ' ', ' ')}}</td>
+            {#{% set prixFournisseur =0 %}#}
+            {#{% for prix in  fournisseur.Ligne  if produit.produit_id == fournisseur.Ligne.Produit.id %}#}
+            {#<td>{{ prix.Prix |number_format(0, ' ', ' ')}}#}
+                {#{% set prixFournisseur = prix.Prix %}#}
+            {#</td>#}
+                {#{% endfor %}#}
+            <td>{{ (produit.PrixVente * produit.total)|number_format(0, ' ', ' ') }}</td>
+            {% set somme = somme + (produit.PrixVente * produit.total)  %}
+            {#<td>{{ (prixFournisseur * produit.total)|number_format(0, ' ', ' ') }}</td>#}
+            {#{% set sommeFournisseur = sommeFournisseur + (prixFournisseur * produit.total)  %}#}
+        </tr>
+        {#<p>{{ produit.LibelleProduit }} </p>#}
+        {#<p>{{ produit.total }} </p>#}
+    {% endfor %}
+
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td> TOTAL </td>
+                    <td>
+
+                            <h5>{{ somme|number_format(0, ' ', ' ') }}</h5>
+
+                    </td>
+                </tr>
+                </tfoot>
+
+            </table>
+
+
+        {% else %}
+
+
+
+        {% endfor %}
+
+
+
+{% endblock %}

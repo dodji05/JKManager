@@ -117,4 +117,34 @@ class VenteController extends Controller
         ));
     }
 
+    /**
+     * @Route("/ventes/ventes_du_jour",name="vente_jour")
+     */
+    function ventesDuJour (){
+        $doctrine = $this->getDoctrine();
+
+        //on recupere la vente
+        $repository1 = $doctrine->getRepository('App:Ventes');
+        $ventes = $repository1->venteDuJour();
+        return $this->render('ventes/Liste_ventes.html.twig', array(
+            'type'=>'venteJour',
+            'ventes' => $ventes
+        ));
+    }
+
+    /**
+     * @Route("/ventes/semaine",name="vente_semaine")
+     */
+    function ventesDeLaSemaine (){
+        $doctrine = $this->getDoctrine();
+
+        //on recupere la vente
+        $repository1 = $doctrine->getRepository('App:Ventes');
+        $ventes = $repository1->venteSemaineEnCours();
+        return $this->render('ventes/Liste_ventes.html.twig', array(
+            'type'=>'venteJour',
+            'ventes' => $ventes
+        ));
+    }
+
 }

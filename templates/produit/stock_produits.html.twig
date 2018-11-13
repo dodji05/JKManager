@@ -1,4 +1,7 @@
 {% extends 'layout_base.html.twig' %}
+{% block stylesheet %}
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+{% endblock %}
 {% block titre_page %} STOCK PRODUITS {% endblock %}
 {% block sous_titre_page %} stock {% endblock %}
 {% block nouveau %}<a href="{{ path('produit_new') }}">Nouveau</a>{% endblock %}
@@ -6,20 +9,24 @@
     <table class="table  table-striped">
         <thead>
             <tr>
-                <th></th>
-                <th>Code</th>
+                {#<th></th>#}
+
                 <th>Produit</th>
-                <th>Stock </th>
+                <th> Quantite Stock </th>
                 {#<th>actions</th>#}
             </tr>
         </thead>
         <tbody>
         {% for produit in produits %}
             <tr>
-                <td> <img src="{{ vich_uploader_asset(produit.produits, 'imageFile') }}"> </td>
-                <td>{{ produit.produits.codeproduit }}</td>
+                {#<td> <img src="{{ vich_uploader_asset(produit.produits, 'imageFile') }}" class="img-thumbnail" height="35px"> </td>#}
+
                 <td>{{ produit.produits.LibelleProduit }}</td>
-                <td>{{ produit.qteEnStock }}</td>
+                <td>{{ produit.qteEnStock }}
+                {% if produit.qteEnStock <=0  %}
+                    <button type="button" class="btn waves-effect waves-light btn-outline-danger" style="font-size: xx-small">Appelez le fournisseur</button>
+                {% endif %}
+                </td>
 
                 {#<td>#}
                     {#<a href="{{ path('produit_show', {'id': produit.id}) }}">show</a>#}
@@ -35,4 +42,23 @@
     </table>
 
 
+{% endblock %}
+{% block javascript %}
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript">
+
+    $(document).ready( function () {
+        $('.table').DataTable({
+            responsive: true,
+            language: {
+
+                url: "http://cdn.datatables.net/plug-ins/1.10.9/i18n/French.json",
+                "pageLength": 20,
+                lengthMenu:[20,25,30,55,100,500],
+
+            }
+        });
+
+    } );
+</script>
 {% endblock %}

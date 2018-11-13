@@ -5,35 +5,11 @@
 
         {#{{ form_label(form.NomClient,{'attr':{'class':'col-sm-3 col-form-label' }}) }}#}
         <div class="col-sm-3 col-form-label">
-            {{ form_label(form.client.NomClient) }}
-        </div>
-
-        <div class="col-sm-6">
-            {{ form_widget(form.client.NomClient,{'attr':{'class':'form-control' }}) }}
-            {#<input class="form-control" name="customer_name" id="customer_name" type="text" placeholder="Customer Name" required="" tabindex="1" aria-required="true">#}
-        </div>
-    </div>
-    <div class="form-group row">
-
-        {#{{ form_label(form.NomClient,{'attr':{'class':'col-sm-3 col-form-label' }}) }}#}
-        <div class="col-sm-3 col-form-label">
-            {{ form_label(form.client.PrenomClient) }}
-        </div>
-
-        <div class="col-sm-6">
-            {{ form_widget(form.client.PrenomClient,{'attr':{'class':'form-control' }}) }}
-            {#<input class="form-control" name="customer_name" id="customer_name" type="text" placeholder="Customer Name" required="" tabindex="1" aria-required="true">#}
-        </div>
-    </div>
-    <div class="form-group row">
-
-        {#{{ form_label(form.NomClient,{'attr':{'class':'col-sm-3 col-form-label' }}) }}#}
-        <div class="col-sm-3 col-form-label">
             {{ form_label(form.client.Telephone1) }}
         </div>
 
         <div class="col-sm-6">
-            {{ form_widget(form.client.Telephone1,{'attr':{'class':'form-control' }}) }}
+            {{ form_widget(form.client.Telephone1) }}
             {#<input class="form-control" name="customer_name" id="customer_name" type="text" placeholder="Customer Name" required="" tabindex="1" aria-required="true">#}
         </div>
     </div>
@@ -53,11 +29,36 @@
 
         {#{{ form_label(form.NomClient,{'attr':{'class':'col-sm-3 col-form-label' }}) }}#}
         <div class="col-sm-3 col-form-label">
+            {{ form_label(form.client.NomClient) }}
+        </div>
+
+        <div class="col-sm-6">
+            {{ form_widget(form.client.NomClient) }}
+            {#<input class="form-control" name="customer_name" id="customer_name" type="text" placeholder="Customer Name" required="" tabindex="1" aria-required="true">#}
+        </div>
+    </div>
+    <div class="form-group row">
+
+        {#{{ form_label(form.NomClient,{'attr':{'class':'col-sm-3 col-form-label' }}) }}#}
+        <div class="col-sm-3 col-form-label">
+            {{ form_label(form.client.PrenomClient) }}
+        </div>
+
+        <div class="col-sm-6">
+            {{ form_widget(form.client.PrenomClient) }}
+            {#<input class="form-control" name="customer_name" id="customer_name" type="text" placeholder="Customer Name" required="" tabindex="1" aria-required="true">#}
+        </div>
+    </div>
+
+    <div class="form-group row">
+
+        {#{{ form_label(form.NomClient,{'attr':{'class':'col-sm-3 col-form-label' }}) }}#}
+        <div class="col-sm-3 col-form-label">
             {{ form_label(form.client.ZoneGeographique) }}
         </div>
 
         <div class="col-sm-6">
-            {{ form_widget(form.client.ZoneGeographique,{'attr':{'class':'form-control' }}) }}
+            {{ form_widget(form.client.ZoneGeographique) }}
             {#<input class="form-control" ZoneGeographiquename="customer_name" id="customer_name" type="text" placeholder="Customer Name" required="" tabindex="1" aria-required="true">#}
         </div>
     </div>
@@ -69,7 +70,7 @@
         </div>
 
         <div class="col-sm-6">
-            {{ form_widget(form.client.LieuxLivraison,{'attr':{'class':'form-control' }}) }}
+            {{ form_widget(form.client.LieuxLivraison) }}
             {#<input class="form-control" ZoneGeographiquename="customer_name" id="customer_name" type="text" placeholder="Customer Name" required="" tabindex="1" aria-required="true">#}
         </div>
     </div>
@@ -81,7 +82,7 @@
         </div>
 
         <div class="col-sm-6">
-            {{ form_widget(form.client.Sexe,{'attr':{'class':'form-control' }}) }}
+            {{ form_widget(form.client.Sexe) }}
             {#<input class="form-control" ZoneGeographiquename="customer_name" id="customer_name" type="text" placeholder="Customer Name" required="" tabindex="1" aria-required="true">#}
         </div>
     </div>

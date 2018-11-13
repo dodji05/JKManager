@@ -5,7 +5,17 @@
 {% block nouveau %}<a href="{{ path('details_appro_new') }}">Nouveau</a>{% endblock %}
 
  {% block contenuprincipal %}
-    {{ include('details_appro/_form.html.twig') }}
+
+     <div class="main-container">
+         <div class="row">
+             <div class="col-sm-12 table-responsive">
+                 {#Create new Clients#}
+                 {{ include('details_appro/_form.html.twig') }}
+             </div>
+
+         </div>
+     </div>
+
 
     <a href="{{ path('details_appro_index') }}">back to list</a>
 {% endblock %}

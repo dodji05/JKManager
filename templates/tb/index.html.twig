@@ -1,0 +1,170 @@
+{% extends 'layout_base.html.twig' %}
+ {% block stylesheet %}
+
+     <style type="text/css">
+         .panel-bd, .panel-danger, .panel-info, .panel-inverse, .panel-primary, .panel-success, .panel-warning {
+             border: 1px solid #e1e6ef;
+         }
+
+         .statistic-box h2 {
+             margin: 0;
+             font-weight: 700;
+         }
+
+         .statistic-box .small {
+             font-weight: 600;
+             color: #222;
+             margin-bottom: 15px;
+         }
+         a {
+             color: #37a000;
+             text-decoration: none !important;
+         }
+     </style>
+ {% endblock %}
+
+{% block titre_page %} TABLEAU DE BORD {% endblock %}
+{% block sous_titre_page %} Apercu rapides {% endblock %}
+{% block contenuprincipal %}
+    <div class=" main-container table-container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                <div class="panel panel-bd">
+                    <div class="panel-body">
+                        <div class="statistic-box">
+                            <h2><span class="count-number">{{ nbClients }}</span>
+                                <span class="slight"><i class="fa fa-play fa-rotate-270 text-warning"> </i></span></h2>
+                            <div class="small">Clients</div>
+                            <div class="sparkline1 text-center">
+                                <canvas width="183" height="35"
+                                        style="display: inline-block; width: 183px; height: 35px; vertical-align: top;"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                <div class="panel panel-bd">
+                    <div class="panel-body">
+                        <div class="statistic-box">
+                            <h2><span class="count-number">{{ nbProduit }}</span> <span class="slight"><i
+                                            class="fa fa-play fa-rotate-270 text-warning"> </i></span></h2>
+                            <div class="small">Produits</div>
+                            <div class="sparkline1 text-center">
+                                <canvas width="183" height="35"
+                                        style="display: inline-block; width: 183px; height: 35px; vertical-align: top;"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                <div class="panel panel-bd">
+                    <div class="panel-body">
+                        <div class="statistic-box">
+                            <h2><span class="count-number">{{ nbfournisseur }}</span> <span class="slight"><i
+                                            class="fa fa-play fa-rotate-270 text-warning"> </i> </span></h2>
+                            <div class="small">Fournisseurs</div>
+                            <div class="sparkline1 text-center">
+                                <canvas width="183" height="35"
+                                        style="display: inline-block; width: 183px; height: 35px; vertical-align: top;"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                <div class="panel panel-bd">
+                    <div class="panel-body">
+                        <div class="statistic-box">
+                            <h2><span class="count-number">{{ nbVentes }}</span><span class="slight"> <i
+                                            class="fa fa-play fa-rotate-270 text-warning"> </i> </span></h2>
+                            <div class="small">Ventes totales</div>
+                            <div class="sparkline1 text-center">
+                                <canvas width="183" height="35"
+                                        style="display: inline-block; width: 183px; height: 35px; vertical-align: top;"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr/>
+    <div class=" main-container table-container">
+        <h4 class="text-themecolor">Acces rapide</h4>
+        <hr/>
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                <div class="panel panel-bd">
+                    <div class="panel-body">
+                        <div class="statistic-box">
+                            <h2><span class="slight" style="margin-left: 70px;">
+                                <img src="http://saleserpnew.bdtask.com/my-assets/image/invoice.png" height="40" width="40">
+                             </span></h2>
+                            <div class="small" style="font-size: 17px;margin-top: 20px;text-align: center;">
+                                <a href="{{ path('vente') }}">Nouvelle vente</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                <div class="panel panel-bd">
+                    <div class="panel-body">
+                        <div class="statistic-box">
+                            <h2><span class="slight" style="margin-left: 70px;">
+                                    <img src="http://saleserpnew.bdtask.com/my-assets/image/pos_invoice.png" height="40" width="40"> </span></h2>
+                            <div class="small" style="font-size: 17px;margin-top: 20px;text-align: center;">
+                                <a href="{{ path('details_appro_new') }}">Nouvel approvissioment </a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                <div class="panel panel-bd">
+                    <div class="panel-body">
+                        <div class="statistic-box">
+                            <h2><span class="slight" style="margin-left: 70px;"><img src="http://saleserpnew.bdtask.com/my-assets/image/product.png" height="40" width="40"> </span></h2>
+                            <div class="small" style="font-size: 17px;margin-top: 20px;text-align: center;">
+                                <a href="{{ path('produit_new') }}">Ajouter un  Produit</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                <div class="panel panel-bd">
+                    <div class="panel-body">
+                        <div class="statistic-box">
+                            <h2><span class="slight" style="margin-left: 70px;">
+                                    <img src="http://saleserpnew.bdtask.com/my-assets/image/customer.png" height="40" width="40"> </span></h2>
+                            <div class="small" style="font-size: 17px;margin-top: 20px;text-align: center;">
+                                <a href="#">Nouvelle depense</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr/>
+    <div class=" main-container table-container">
+        <h4 class="text-themecolor">TOP 5 </h4>
+        <hr/>
+        <ul class="nav nav-tabs customtab" role="tablist">
+            <li class="nav-item"> <a class="nav-link active show" data-toggle="tab" href="#home2" role="tab" aria-selected="true"><span class="hidden-sm-up"><i class="ti-home"></i></span> <span class="hidden-xs-down">Home</span></a> </li>
+            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#profile2" role="tab" aria-selected="false"><span class="hidden-sm-up"><i class="ti-user"></i></span> <span class="hidden-xs-down">Profile</span></a> </li>
+            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#messages2" role="tab" aria-selected="false"><span class="hidden-sm-up"><i class="ti-email"></i></span> <span class="hidden-xs-down">Messages</span></a> </li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active show" id="home2" role="tabpanel">
+                <div class="p-20">
+                    <h3>Best Clean Tab ever</h3>
+                    <h4>you can use it with the small code</h4>
+                    <p>Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a.</p>
+                </div>
+            </div>
+            <div class="tab-pane p-20" id="profile2" role="tabpanel">2</div>
+            <div class="tab-pane p-20" id="messages2" role="tabpanel">3</div>
+        </div>
+    </div>
+{% endblock %}
