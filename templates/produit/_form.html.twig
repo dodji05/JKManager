@@ -1,0 +1,61 @@
+{{ form_start(form) }}
+{{ form_start(form,{'attr':{'class':'form-vertical' }}) }}
+<div class="form-group row">
+
+    {#{{ form_label(form.NomClient,{'attr':{'class':'col-sm-3 col-form-label' }}) }}#}
+    <div class="col-sm-3 col-form-label">
+        {{ form_label(form.Codeproduit) }}
+    </div>
+
+    <div class="col-sm-6">
+        {{ form_widget(form.Codeproduit,{'attr':{'class':'form-control' }}) }}
+        {#<input class="form-control" name="customer_name" id="customer_name" type="text" placeholder="Customer Name" required="" tabindex="1" aria-required="true">#}
+    </div>
+</div>
+<div class="form-group row">
+
+    {#{{ form_label(form.NomClient,{'attr':{'class':'col-sm-3 col-form-label' }}) }}#}
+    <div class="col-sm-3 col-form-label">
+        {{ form_label(form.LibelleProduit) }}
+    </div>
+
+    <div class="col-sm-6">
+        {{ form_widget(form.LibelleProduit,{'attr':{'class':'form-control' }}) }}
+        {#<input class="form-control" name="customer_name" id="customer_name" type="text" placeholder="Customer Name" required="" tabindex="1" aria-required="true">#}
+    </div>
+</div>
+<div class="form-group row">
+
+    {#{{ form_label(form.NomClient,{'attr':{'class':'col-sm-3 col-form-label' }}) }}#}
+    <div class="col-sm-3 col-form-label">
+        {{ form_label(form.PrixVente) }}
+    </div>
+
+    <div class="col-sm-6">
+        {{ form_widget(form.PrixVente,{'attr':{'class':'form-control' }}) }}
+        {#<input class="form-control" name="customer_name" id="customer_name" type="text" placeholder="Customer Name" required="" tabindex="1" aria-required="true">#}
+    </div>
+</div>
+<div class="form-group row">
+
+    {#{{ form_label(form.NomClient,{'attr':{'class':'col-sm-3 col-form-label' }}) }}#}
+    <div class="col-sm-3 col-form-label">
+        {#{{ form_label(form.ImageProduits) }}#}
+    </div>
+
+    <div class="col-sm-6">
+        {#{{ form_widget(form.imageFile,{'attr':{'class':'form-control' }}) }}
+        <input class="form-control" name="customer_name" id="customer_name" type="text" placeholder="Customer Name" required="" tabindex="1" aria-required="true">#}
+    </div>
+</div>
+    {{ form_widget(form) }}
+<div class="form-group row">
+    <label for="example-text-input" class="col-sm-4 col-form-label"></label>
+    <div class="col-sm-6">
+        <input type="submit" id="add-customer" class="btn btn-primary btn-large" name="add-customer" value="Enregistrer" tabindex="7">
+        <a href="{{ path('clients_new') }}" >  <button type="button" value="Enregistrer puis ajouter un nouveau produit" name="add-customer-another" class="btn btn-large btn-success" id="add-customer-another" tabindex="6">Enregistrer puis ajouter un nouveau produit</button>
+        </a>
+    </div>
+</div>
+
+{{ form_end(form) }}

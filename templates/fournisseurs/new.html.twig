@@ -1,0 +1,13 @@
+{% extends 'layout_base.html.twig' %}
+
+{% block titre_page %} AJOUTER UN FOURNISSEUR {% endblock %}
+{% block sous_titre_page %} Nouveau fournisseur {% endblock %}
+{% block nouveau %}<a href="{{ path('fournisseurs_new') }}">Nouveau</a>{% endblock %}
+
+ {% block contenuprincipal %}
+
+
+     {{ include('fournisseurs/_form.html.twig') }}
+
+    <a href="{{ path('fournisseurs_index') }}">back to list</a>
+{% endblock %}

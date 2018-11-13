@@ -1,0 +1,22 @@
+{% extends 'layout_base.html.twig' %}
+
+{% block titre_page %} AJOUTER UN CLIENT {% endblock %}
+{% block sous_titre_page %} Nouveau client {% endblock %}
+{% block nouveau %}<a href="{{ path('clients_new') }}">Nouveau</a>{% endblock %}
+
+
+ {% block contenuprincipal %}
+
+
+    <div class="main-container">
+        <div class="row">
+            <div class="col-sm-12">
+                {#Create new Clients#}
+
+                {{ include('clients/_form.html.twig') }}
+
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'layout_base.html.twig' %}
+
+{% block titre_page %}  APPROVISIONNEMENT {% endblock %}
+{% block sous_titre_page %} Details de l'approvisionnenmt  {% endblock %}
+{% block nouveau %}<a href="{{ path('details_appro_new') }}"></a>{% endblock %}
+
+ {% block contenuprincipal %}
+     <div class="main-container">
+         <div class="alert alert-success">
+             <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">×</span> </button>
+             <h3 class="text-success"><i class="fa fa-check-circle"></i> Success</h3>
+             Details de l'approvisionnement
+         </div>
+     <div class="row">
+     </div>
+         <div class="row">
+         </div>
+     </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>PrixAppro</th>
+                <th>Quantite</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for details_appro in details_appros %}
+            <tr>
+                <td>{{ details_appro.id }}</td>
+                <td>{{ details_appro.PrixAppro }}</td>
+                <td>{{ details_appro.Quantite }}</td>
+                <td>
+                    <a href="{{ path('details_appro_show', {'id': details_appro.id}) }}">show</a>
+                    <a href="{{ path('details_appro_edit', {'id': details_appro.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('details_appro_new') }}">Create new</a>
+{% endblock %}

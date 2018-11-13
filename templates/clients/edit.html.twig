@@ -1,0 +1,16 @@
+{% extends 'layout_base.html.twig' %}
+
+{% block titre_page %} MODIFIER UN CLIENT {% endblock %}
+{% block sous_titre_page %} modifie client {% endblock %}
+{% block nouveau %}<a href="{{ path('clients_new') }}">Nouveau</a>{% endblock %}
+
+
+ {% block contenuprincipal %}
+
+
+    {{ include('clients/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('clients_index') }}">back to list</a>
+
+    {{ include('clients/_delete_form.html.twig') }}
+{% endblock %}

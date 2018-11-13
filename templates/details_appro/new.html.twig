@@ -1,0 +1,95 @@
+{% extends 'layout_base.html.twig' %}
+
+{% block titre_page %} NOUVEL APPROVISIONNEMENT {% endblock %}
+{% block sous_titre_page %} produits/fournisseur {% endblock %}
+{% block nouveau %}<a href="{{ path('details_appro_new') }}">Nouveau</a>{% endblock %}
+
+ {% block contenuprincipal %}
+    {{ include('details_appro/_form.html.twig') }}
+
+    <a href="{{ path('details_appro_index') }}">back to list</a>
+{% endblock %}
+{% block javascript %}
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+<script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+    <script>
+
+    jQuery(document).ready(function() {
+        $("body").delegate("#addItem", "click", addItem)
+         $('.vente_id').select2();
+
+    });
+
+
+function addItem (e){
+
+    var $detalles = $("#approvisionement_detailsAppros");
+    var $test  = $("#approvisionement_detailsAppros").find('table').find('tbody');
+    // var $detalles = $("#scom_bundle_ventes_type_vente").closest('tbody');
+    var $index = $detalles.children().length;
+    var $index2 = $test.children().length;
+    // var $detalle = $detalles.attr("data-prototype").replace(/__name__/g, $index).replace(/__num__/g, $index);
+    var $detalle = $detalles.attr("data-prototype").replace(/__name__/g, $index2).replace(/__num__/g, $index2);
+    //  var $test  = $("#scom_bundle_ventes_type_vente").find('table').find('tbody');
+    //  alert('$test')
+    // $detalles.append( $detalle);
+    $test.append( $detalle)
+};
+
+function remplissage_fournisseur(e, elem){
+    e.preventDefault();
+    var tel = $('#approvisionement_fournisseur_TelephoneFournisseur').val();
+  //  var parent = $(elem).closest('tr');
+   //  alert(tel);
+   // if(tel.length > 3){
+        $.ajax({
+            type: 'get',
+            url: Routing.generate('fournisseur_recherche_ajax', {telephone: tel}),
+            dataType: "json",
+            // data: {
+            //     term: request.term
+            // },
+            success: function (data) {
+                $('.fournisseur_nom').val(data.Nom);
+                $('.fournisseur_prenom').val(data.Prenom);
+                $('#fournisseurs_prix_SituationGeographique').val(data.zone);
+
+            }
+        })
+   // }
+
+}
+
+$('#appbundle_person_city').change(function (elem) {
+            var citySelector = $(elem).closest('tr');
+
+            // Request the neighborhoods of the selected city.
+            $.ajax({
+                url: "{{ path('person_list_neighborhoods') }}",
+                type: "GET",
+                dataType: "JSON",
+                data: {
+                    cityid: citySelector.val()
+                },
+                success: function (neighborhoods) {
+                    var neighborhoodSelect = $("#appbundle_person_neighborhood");
+
+                    // Remove current options
+                    neighborhoodSelect.html('');
+
+                    // Empty value ...
+                    neighborhoodSelect.append('<option value> Select a neighborhood of ' + citySelector.find("option:selected").text() + ' ...</option>');
+
+
+                    $.each(neighborhoods, function (key, neighborhood) {
+                        neighborhoodSelect.append('<option value="' + neighborhood.id + '">' + neighborhood.name + '</option>');
+                    });
+                },
+                error: function (err) {
+                    alert("An error ocurred while loading data ...");
+                }
+            });
+        });
+</script>
+{% endblock %}

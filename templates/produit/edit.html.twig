@@ -1,0 +1,13 @@
+{% extends 'layout_base.html.twig' %}
+{% block titre_page %} MODIFIER UN PRODUIT {% endblock %}
+{% block sous_titre_page %}  modifications les produits {% endblock %}
+{% block nouveau %}<a href="{{ path('produit_new') }}">Nouveau</a>{% endblock %}
+{% block contenuprincipal %}
+
+
+    {{ include('produit/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('produit_index') }}">back to list</a>
+
+    {{ include('produit/_delete_form.html.twig') }}
+{% endblock %}

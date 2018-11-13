@@ -1,0 +1,13 @@
+{% extends 'layout_base.html.twig' %}
+
+{% block titre_page %} PRODUITS - FOURNISSEURS {% endblock %}
+{% block sous_titre_page %} produits/fournisseur {% endblock %}
+{% block nouveau %}<a href="{{ path('produits_fournisseurs_new') }}">Nouveau</a>{% endblock %}
+
+ {% block contenuprincipal %}
+    {{ include('produits_fournisseurs/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('produits_fournisseurs_index') }}">back to list</a>
+
+    {{ include('produits_fournisseurs/_delete_form.html.twig') }}
+{% endblock %}

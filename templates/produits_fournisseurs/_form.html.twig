@@ -1,0 +1,70 @@
+{{ form_start(form,{'attr':{'class':'form-vertical' }}) }}
+<fieldset name="four">
+    <legend>Renseignements fournisseurs :</legend>
+    <div class="form-group row">
+
+        {#{{ form_label(form.NomClient,{'attr':{'class':'col-sm-3 col-form-label' }}) }}#}
+        <div class="col-sm-3 col-form-label">
+            {{ form_label(form.Fournisseur.TelephoneFournisseur) }}
+        </div>
+
+        <div class="col-sm-6">
+            {{ form_widget(form.Fournisseur.TelephoneFournisseur,{'attr':{'class':'form-control' }}) }}
+            {#<input class="form-control" name="customer_name" id="customer_name" type="text" placeholder="Customer Name" required="" tabindex="1" aria-required="true">#}
+        </div>
+    </div>
+    <div class="form-group row">
+
+        {#{{ form_label(form.NomClient,{'attr':{'class':'col-sm-3 col-form-label' }}) }}#}
+        <div class="col-sm-3 col-form-label">
+            {{ form_label(form.Fournisseur.NomFournisseur) }}
+        </div>
+
+        <div class="col-sm-6">
+            {{ form_widget(form.Fournisseur.NomFournisseur,{'attr':{'class':'form-control' }}) }}
+            {#<input class="form-control" name="customer_name" id="customer_name" type="text" placeholder="Customer Name" required="" tabindex="1" aria-required="true">#}
+        </div>
+    </div>
+    <div class="form-group row">
+
+        {#{{ form_label(form.NomClient,{'attr':{'class':'col-sm-3 col-form-label' }}) }}#}
+        <div class="col-sm-3 col-form-label">
+            {{ form_label(form.Fournisseur.PrenomFournisseur) }}
+        </div>
+
+        <div class="col-sm-6">
+            {{ form_widget(form.Fournisseur.PrenomFournisseur,{'attr':{'class':'form-control' }}) }}
+            {#<input class="form-control" name="customer_name" id="customer_name" type="text" placeholder="Customer Name" required="" tabindex="1" aria-required="true">#}
+        </div>
+    </div>
+    <div class="form-group row">
+
+        {#{{ form_label(form.NomClient,{'attr':{'class':'col-sm-3 col-form-label' }}) }}#}
+        <div class="col-sm-3 col-form-label">
+            {{ form_label(form.Fournisseur.SituationGeographique) }}
+        </div>
+
+        <div class="col-sm-6">
+            {{ form_widget(form.Fournisseur.SituationGeographique,{'attr':{'class':'form-control' }}) }}
+            {#<input class="form-control" name="customer_name" id="customer_name" type="text" placeholder="Customer Name" required="" tabindex="1" aria-required="true">#}
+        </div>
+    </div>
+
+
+</fieldset>
+<fieldset name="four">
+    <legend> Prix :</legend>
+{% form_theme form.Produit  'form_theme/table_layout.html.twig' %}
+
+                                    {{ form_widget(form.Produit ) }}
+    {#<button class="btn">{{ button_label|default('Save') }}</button>#}
+    <div class="form-group row">
+        <label for="example-text-input" class="col-sm-4 col-form-label"></label>
+        <div class="col-sm-6">
+            <input type="submit" id="add-customer" class="btn btn-primary btn-large" name="add-customer" value="Enregistrer" tabindex="7">
+            <a href="{{ path('clients_new') }}" >  <button type="button" value="Enregistrer puis ajouter un nouveau produit" name="add-customer-another" class="btn btn-large btn-success" id="add-customer-another" tabindex="6">Enregistrer puis ajouter un nouveau produit</button>
+            </a>
+        </div>
+    </div>
+{{ form_end(form)}}
+</fieldset>

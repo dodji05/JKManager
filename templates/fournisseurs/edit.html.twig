@@ -1,0 +1,15 @@
+{% extends 'layout_base.html.twig' %}
+
+{% block titre_page %} MODIFICATION FOURNISSEUR {% endblock %}
+{% block sous_titre_page %} mise a jour info fournisseurS {% endblock %}
+{% block nouveau %}<a href="{{ path('fournisseurs_new') }}">Nouveau</a>{% endblock %}
+
+ {% block contenuprincipal %}
+
+
+     {{ include('fournisseurs/_form.html.twig', {'button_label': 'Update'}) }}
+
+
+
+    {{ include('fournisseurs/_delete_form.html.twig') }}
+{% endblock %}

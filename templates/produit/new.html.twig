@@ -1,0 +1,18 @@
+{% extends 'layout_base.html.twig' %}
+
+{% block titre_page %} AJOUTER UN PRODUIT {% endblock %}
+{% block sous_titre_page %} Nouveau produit {% endblock %}
+{% block nouveau %}<a href="{{ path('produit_new') }}">Nouveau</a>{% endblock %}
+{% block contenuprincipal %}
+
+    <div class="main-container">
+        <div class="row">
+            <div class="col-sm-12">
+
+                {{ include('produit/_form.html.twig') }}
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

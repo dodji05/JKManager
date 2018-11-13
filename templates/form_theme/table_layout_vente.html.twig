@@ -1,0 +1,145 @@
+{% block collection_widget %}
+ {% spaceless %}
+        {% if prototype is defined %}
+            {% set attr = attr|merge({'data-prototype': block('collection_item_widget') }) %}
+        {% endif %}
+        <div class="collection" {{ block('widget_container_attributes') }}>
+            {{ form_errors(form) }}
+            <table class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                
+                    <th class="text-center" style="width: 220px">
+                       Produits
+                        <i class="text-danger">*</i>
+                    </th>
+                    <th class="text-center" width="15%">
+                       <span contenteditable> Prix </span>
+                    </th>
+                    <th class="text-center" width="20%">
+                        <span contenteditable> Quantite </span>
+                    </th>
+                    <th class="text-center" width="20%">
+                        <span contenteditable> Total </span>
+                    </th>
+                    <th class="text-center" width="5%">
+                        <span contenteditable> Action </span>
+                    </th>
+
+					                
+                </tr>
+                </thead>
+				
+                <tbody>
+     {% set fieldNum = 1 %}
+     <tr>
+                {% for rows in form %}
+
+                    {% for row in rows %}
+                       {#{%  if fieldNum == 1 %}#}
+                           {#{% set class = "ligne_vente_code" %}#}
+                           {#<td>  <span contenteditable>  {{ form_widget(row) }}</span></td>#}
+                       {#{% endif %}#}
+                       {#{%  if fieldNum == 2 %}#}
+                           {#{% set class = "vente_id" %}#}
+                           {#<td>   <span contenteditable>  {{ form_widget(row) }}</td>#}
+                       {#{% endif %}#}
+                       {#{%  if fieldNum == 3 %}#}
+                           {#{% set class = "vente_qte" %}#}
+                           {#<td>    {{ form_widget(row) }}</td>#}
+                       {#{% endif %}#}
+
+                       {#{%  if fieldNum == 4 %}#}
+                           {#{% set class = "vente_pV" %}#}
+                           {#<td>    {{ form_widget(row) }}</td>#}
+                       {#{% endif %}#}
+
+                       {#{%  if fieldNum == 5 %}#}
+                           {#{% set class = "vente_bV" %}#}
+                           {#<td>    {{ form_widget(row) }}</td>#}
+                       {#{% endif %}#}
+
+                       {#{%  if fieldNum == 6 %}#}
+                           {#{% set class = "vente_total" %}#}
+                           {#<td>    {{ form_widget(row) }}</td>#}
+                       {#{% endif %}#}
+                       {#{{ form_widget(row, { 'attr': { 'class': class }}) }}#}
+                        <td>
+
+                          {{ form_widget(row) }}
+
+
+                        </td>
+
+
+
+                    {% set fieldNum = fieldNum + 1 %}
+                    {% endfor %}
+
+         <td>
+
+         <button class="btn btn-danger red" type="button" value="Delete" onclick="deleteRow(this)" tabindex="10"><i class="fa fa-trash" aria-hidden="true"></i></button>
+         </td>
+
+     </tr>
+	 
+                {% endfor %}
+
+               {{ form_rest(form) }}
+
+                </tbody>
+                <tfoot>
+
+
+                <tr>
+                    <td colspan="3" style="text-align:right;"><b>Total:</b></td>
+                    <td class="text-right">
+                        <input type="text" id="grandTotal" class="form-control text-right" name="grand_total_price" value="0.00" readonly="readonly">
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center" >
+                        <input type="button" id="addItem" class="btn btn-info add" name="add-invoice-item"  value="Ajouter un produit" tabindex="12">
+
+                    </td>
+
+
+                </tr>
+                <tr>
+                    <td align="center" colspan="3">
+                        <input type="submit" id="add_invoice" class="btn btn-success" name="add-invoice" value="Enregister la vente" tabindex="15">
+                    </td>
+
+
+                </tr>
+                </tfoot>
+            </table>
+
+
+
+        </div>
+
+     {#<div class="row">#}
+         {#<div class="col-lg-12">#}
+		    {#<a id="addItem" class="add" aria-hidden="true">+</a>#}
+         {#</div>#}
+     {#</div>#}
+    {% endspaceless %}
+{% endblock collection_widget %}
+
+{% block collection_item_widget %}
+    {% spaceless %}
+        <tr>
+            {% for row in prototype %}
+                <td>
+                   {{ form_widget(row) }}
+                </td>
+            {% endfor %}
+            <td>
+
+                <button class="btn btn-danger red" type="button" value="Delete" onclick="deleteRow(this)" tabindex="10"><i class="fa fa-trash" aria-hidden="true"></i></button>
+            </td>
+			<input type="hidden" mane="sousbv" class="sousbv"/>
+        </tr>
+    {% endspaceless %}
+{% endblock collection_item_widget %}

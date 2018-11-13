@@ -1,0 +1,6 @@
+{
+    "require": {
+        "friendsofsymfony/user-bundle": "^2.1",
+        "friendsofsymfony/jsrouting-bundle": "^2.2"
+    }
+}

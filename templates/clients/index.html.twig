@@ -1,0 +1,66 @@
+{% extends 'layout_base.html.twig' %}
+{% block stylesheet %}
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+{% endblock %}
+{% block titre_page %} LISTE DES CLIENTS {% endblock %}
+{% block sous_titre_page %} Les clients {% endblock %}
+{% block nouveau %}<a href="{{ path('clients_new') }}">Nouveau</a>{% endblock %}
+
+{% block contenuprincipal %}
+    <div class=" main-container table-container" >
+
+
+
+    <table class="table">
+        <thead>
+            <tr>
+
+                <th>Nom Client</th>
+                <th>Prenom Client</th>
+                <th>Telephone1</th>
+                <th>Telephone2</th>
+                <th>Zone Geographique</th>
+                <th>Sexe</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for client in clients %}
+            <tr>
+
+                <td>{{ client.NomClient }}</td>
+                <td>{{ client.PrenomClient }}</td>
+                <td>{{ client.Telephone1 }}</td>
+                <td>{{ client.Telephone2 }}</td>
+                <td>{{ client.ZoneGeographique }}</td>
+                <td>{{ client.Sexe }}</td>
+                <td>
+                    <a href="{{ path('clients_show', {'id': client.id}) }}">show</a>
+                    <a href="{{ path('clients_edit', {'id': client.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
+
+{% endblock %}
+{% block javascript %}
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript">
+
+    $(document).ready( function () {
+        $('.table').DataTable({
+            responsive: true,
+            url: "http://cdn.datatables.net/plug-ins/1.10.9/i18n/French.json",
+            "pageLength": 20,
+            lengthMenu:[20,25,30,55,100,500],
+        });
+
+    } );
+</script>
+{% endblock %}

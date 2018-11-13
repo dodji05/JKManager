@@ -1,0 +1,54 @@
+{% extends 'layout_base.html.twig' %}
+{% block stylesheet %}
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+{% endblock %}
+{% block titre_page %} LISTE DES PRODUITS {% endblock %}
+{% block sous_titre_page %} les produits {% endblock %}
+{% block nouveau %}<a href="{{ path('produit_new') }}">Nouveau</a>{% endblock %}
+{% block contenuprincipal %}
+    <table class="table  table-striped">
+        <thead>
+            <tr>
+
+                <th>Produit</th>
+                <th>Prix Vente</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for produit in produits %}
+            <tr>
+
+                <td>{{ produit.LibelleProduit }}</td>
+                <td>{{ produit.PrixVente }}</td>
+
+                <td>
+                    {#<a href="{{ path('produit_show', {'id': produit.id}) }}">show</a>#}
+                    {#<a href="{{ path('produit_edit', {'id': produit.id}) }}">edit</a>#}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}
+{% block javascript %}
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript">
+
+$(document).ready( function () {
+    $('.table').DataTable({
+        responsive: true,
+        url: "http://cdn.datatables.net/plug-ins/1.10.9/i18n/French.json",
+        "pageLength": 20,
+        lengthMenu:[20,25,30,55,100,500],
+    });
+
+} );
+</script>
+{% endblock %}

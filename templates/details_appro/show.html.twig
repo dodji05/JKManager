@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}DetailsAppro{% endblock %}
+
+{% block body %}
+    <h1>DetailsAppro</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ details_appro.id }}</td>
+            </tr>
+            <tr>
+                <th>PrixAppro</th>
+                <td>{{ details_appro.PrixAppro }}</td>
+            </tr>
+            <tr>
+                <th>Quantite</th>
+                <td>{{ details_appro.Quantite }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('details_appro_index') }}">back to list</a>
+
+    <a href="{{ path('details_appro_edit', {'id': details_appro.id}) }}">edit</a>
+
+    {{ include('details_appro/_delete_form.html.twig') }}
+{% endblock %}

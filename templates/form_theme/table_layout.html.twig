@@ -1,0 +1,97 @@
+{% block collection_widget %}
+ {% spaceless %}
+        {% if prototype is defined %}
+            {% set attr = attr|merge({'data-prototype': block('collection_item_widget') }) %}
+        {% endif %}
+        <div class="collection" {{ block('widget_container_attributes') }}>
+            {{ form_errors(form) }}
+            <table class="inventory">
+                <thead>
+                <tr>
+                
+                    <th width="50%">
+                       <span contenteditable> Produits </span>
+                    </th>
+                    <th width="25%">
+                       <span contenteditable> Prix </span>
+                    </th>
+
+					                
+                </tr>
+                </thead>
+				
+                <tbody>
+     {% set fieldNum = 1 %}
+     <tr>
+                {% for rows in form %}
+
+                    {% for row in rows %}
+                       {#{%  if fieldNum == 1 %}#}
+                           {#{% set class = "ligne_vente_code" %}#}
+                           {#<td>  <span contenteditable>  {{ form_widget(row) }}</span></td>#}
+                       {#{% endif %}#}
+                       {#{%  if fieldNum == 2 %}#}
+                           {#{% set class = "vente_id" %}#}
+                           {#<td>   <span contenteditable>  {{ form_widget(row) }}</td>#}
+                       {#{% endif %}#}
+                       {#{%  if fieldNum == 3 %}#}
+                           {#{% set class = "vente_qte" %}#}
+                           {#<td>    {{ form_widget(row) }}</td>#}
+                       {#{% endif %}#}
+
+                       {#{%  if fieldNum == 4 %}#}
+                           {#{% set class = "vente_pV" %}#}
+                           {#<td>    {{ form_widget(row) }}</td>#}
+                       {#{% endif %}#}
+
+                       {#{%  if fieldNum == 5 %}#}
+                           {#{% set class = "vente_bV" %}#}
+                           {#<td>    {{ form_widget(row) }}</td>#}
+                       {#{% endif %}#}
+
+                       {#{%  if fieldNum == 6 %}#}
+                           {#{% set class = "vente_total" %}#}
+                           {#<td>    {{ form_widget(row) }}</td>#}
+                       {#{% endif %}#}
+                       {#{{ form_widget(row, { 'attr': { 'class': class }}) }}#}
+                        <td>
+						
+                          {{ form_widget(row) }}
+                        </td>
+						
+						
+
+                    {% set fieldNum = fieldNum + 1 %}
+                    {% endfor %}
+
+     </tr>
+	 
+                {% endfor %}
+
+               {{ form_rest(form) }} 
+                </tbody> </table>
+
+
+
+        </div>
+
+     <div class="row">
+         <div class="col-lg-12">
+		    <a id="addItem" class="add" aria-hidden="true">+</a>
+         </div>
+     </div>
+    {% endspaceless %}
+{% endblock collection_widget %}
+
+{% block collection_item_widget %}
+    {% spaceless %}
+        <tr>
+            {% for row in prototype %}
+                <td>
+                   {{ form_widget(row) }}
+                </td>
+            {% endfor %}
+			<input type="hidden" mane="sousbv" class="sousbv"/>
+        </tr>
+    {% endspaceless %}
+{% endblock collection_item_widget %}

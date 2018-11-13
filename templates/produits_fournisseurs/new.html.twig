@@ -1,0 +1,66 @@
+{% extends 'layout_base.html.twig' %}
+
+{% block titre_page %} PRODUITS - FOURNISSEURS {% endblock %}
+{% block sous_titre_page %} produits/fournisseur {% endblock %}
+{% block nouveau %}<a href="{{ path('produits_fournisseurs_new') }}">Nouveau</a>{% endblock %}
+
+ {% block contenuprincipal %}
+
+
+     {{ include('produits_fournisseurs/_form.html.twig') }}
+
+    <a href="{{ path('produits_fournisseurs_index') }}">back to list</a>
+{% endblock %}
+{% block javascript %}
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+<script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+    <script>
+
+    jQuery(document).ready(function() {
+        $("body").delegate("#addItem", "click", addItem)
+
+    });
+
+
+function addItem (e){
+
+    var $detalles = $("#prix_fournisseurs_Produit");
+    var $test  = $("#prix_fournisseurs_Produit").find('table').find('tbody');
+    // var $detalles = $("#scom_bundle_ventes_type_vente").closest('tbody');
+    var $index = $detalles.children().length;
+    var $index2 = $test.children().length;
+    // var $detalle = $detalles.attr("data-prototype").replace(/__name__/g, $index).replace(/__num__/g, $index);
+    var $detalle = $detalles.attr("data-prototype").replace(/__name__/g, $index2).replace(/__num__/g, $index2);
+    //  var $test  = $("#scom_bundle_ventes_type_vente").find('table').find('tbody');
+    //  alert('$test')
+    // $detalles.append( $detalle);
+    $test.append( $detalle)
+};
+
+function remplissage_fournisseur(e, elem){
+    e.preventDefault();
+    var tel = $('#prix_fournisseurs_Fournisseur_TelephoneFournisseur').val();
+  //  var parent = $(elem).closest('tr');
+     alert(tel);
+   // if(tel.length > 3){
+        $.ajax({
+            type: 'get',
+            url: Routing.generate('fournisseur_auto', {tel: tel}),
+            dataType: "json",
+            // data: {
+            //     term: request.term
+            // },
+            success: function (data) {
+                $('#prix_fournisseurs_Fournisseur_NomFournisseur').val(data.Nom);
+                $('#prix_fournisseurs_Fournisseur_PrenomFournisseur').val(data.Prenom);
+                $('#prix_fournisseurs_Fournisseur_SituationGeographique').val(data.SituationGeo);
+
+            }
+        })
+   // }
+
+}
+
+</script>
+{% endblock %}
