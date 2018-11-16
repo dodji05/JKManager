@@ -13,11 +13,12 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
 <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script>
 
     jQuery(document).ready(function() {
         $("body").delegate("#addItem", "click", addItem)
-         $('.vente_id').select2();
+         $('.appro_id').select2();
 
     });
 
@@ -27,6 +28,10 @@ function addItem (e){
     var $detalles = $("#approvisionement_detailsAppros");
     var $test  = $("#approvisionement_detailsAppros").find('table').find('tbody');
     // var $detalles = $("#scom_bundle_ventes_type_vente").closest('tbody');
+
+    var sel = $("#approvisionement_detailsAppros").find('select').find('option').remove()
+
+
     var $index = $detalles.children().length;
     var $index2 = $test.children().length;
     // var $detalle = $detalles.attr("data-prototype").replace(/__name__/g, $index).replace(/__num__/g, $index);
@@ -61,35 +66,36 @@ function remplissage_fournisseur(e, elem){
 
 }
 
-$('#appbundle_person_city').change(function (elem) {
-            var citySelector = $(elem).closest('tr');
-
-            // Request the neighborhoods of the selected city.
+$("document").ready(function() {
+    var $produis;
+    $("#approvisionement_fournisseur_TelephoneFournisseur").blur(function() {
+      // if ($(this).val().length === 5) {
             $.ajax({
-                url: "{{ path('person_list_neighborhoods') }}",
-                type: "GET",
-                dataType: "JSON",
-                data: {
-                    cityid: citySelector.val()
+                type: 'get',
+                //url: 'http://localhost/Symfony/sf_ecommerce/web/app_dev.php/villes/' + $(this).val(),
+                url: Routing.generate('fournisseur_produits_recherche_ajax', {telephone:$(this).val()}),
+                beforeSend: function() {
+                    if ($(".loading").length == 0) {
+                        $("#approvisionement_detailsAppros_0_Produit").parent().append('<div class="loading"></div>');
+                    }
+                     $("#approvisionement_detailsAppros_0_Produit option").remove()
                 },
-                success: function (neighborhoods) {
-                    var neighborhoodSelect = $("#appbundle_person_neighborhood");
+                success: function(data) {
+                    $produis = data
+                    $.each(data, function(index, value) {
+                      $("#approvisionement_detailsAppros_0_Produit").append($('<option>',{value:value.produit_id, text: value.libelle}));
+                    })
 
-                    // Remove current options
-                    neighborhoodSelect.html('');
-
-                    // Empty value ...
-                    neighborhoodSelect.append('<option value> Select a neighborhood of ' + citySelector.find("option:selected").text() + ' ...</option>');
-
-
-                    $.each(neighborhoods, function (key, neighborhood) {
-                        neighborhoodSelect.append('<option value="' + neighborhood.id + '">' + neighborhood.name + '</option>');
-                    });
-                },
-                error: function (err) {
-                    alert("An error ocurred while loading data ...");
+                    $(".loading").remove();
                 }
-            });
-        });
+            }
+            );
+       // }
+        // else {
+        //     $(".ville").val('');
+        // }
+    alert(data)
+    });
+});
 </script>
 {% endblock %}

@@ -57,4 +57,14 @@ class ProduitsFournisseursRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    public  function ProduitParFournisseur($telephone){
+        $qb = $this->createQueryBuilder('f')
+            ->leftJoin('f.Fournisseur', 'four')
+            ->leftJoin('f.Produit',' p')
+            ->where('four.TelephoneFournisseur = :tel')
+            ->setParameter('tel', $telephone)
+            ->orderBy('p.LibelleProduit','ASC');
+        return $qb->getQuery()->getResult();
+    }
+
 }

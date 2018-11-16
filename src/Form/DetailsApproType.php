@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\DetailsAppro;
 use App\Entity\Produit;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -34,7 +35,16 @@ class DetailsApproType extends AbstractType
                 'attr'=>[
                     'class'=>'appro_id',
 //                    'onchange' =>'Maj()',
-                ]])
+                ],
+                'query_builder' => function (EntityRepository $er) {
+
+                    return  $er->createQueryBuilder('p')
+
+                        ->where('p.id = 0');
+
+
+                    // ->orderBy('u.username', 'ASC');
+                }])
             ->add('Quantite',null,[
                     'attr'=>[
                         'class'=>'vente_qte text-right',

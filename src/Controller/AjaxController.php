@@ -11,6 +11,7 @@ namespace App\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -168,5 +169,43 @@ class AjaxController extends Controller
 
         // e.g
         // [{"id":"3","name":"Treasure Island"},{"id":"4","name":"Presidio of San Francisco"}]
+    }
+
+
+    /**
+     * @Route("/fournisseurs/produits/recherche/{telephone}", name="fournisseur_produits_recherche_ajax" , options={"expose"= true} )
+     * @param Request $request
+     * @param $cp
+     * @return JsonResponse
+     */
+    public function villesAction(Request $request,$telephone)
+    {
+      // if ($request->isXmlHttpRequest()) {
+            $em = $this->getDoctrine()->getManager();
+            $produits = $em->getRepository('App:ProduitsFournisseurs')->ProduitParFournisseur($telephone);
+//            dump($produits->getProduit()->getLibelleProduit());
+//            die();
+            if ($produits) {
+                foreach ($produits as $produit){
+
+                        $produitsArray[] = array(
+                        "libelle" =>  $produit->getProduit()->getLibelleProduit(),
+                        "produit_id" => $produit->getProduit()->getId(),
+                        );
+
+
+                }
+
+            } else {
+                $libelle = null;
+                $produit_id = null;
+            }
+            $response = new JsonResponse();
+            return $response->setData($produitsArray);
+//        }
+//        else {
+//            throw new Exception('Erreur5555');
+//        }
+
     }
 }
