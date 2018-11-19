@@ -44,7 +44,7 @@ function addItem (e){
    // $detalle.closest('tr')
    // alert($detalle)
     //  var $test  = $("#scom_bundle_ventes_type_vente").find('table').find('tbody');
-    //  alert($detalle)
+     alert($detalle)
     // $detalles.append( $detalle);
      $.ajax({
                 type: 'get',
@@ -55,12 +55,12 @@ function addItem (e){
                          $("#approvisionement_detailsAppros").parent().append('<div class="loading"></div>');
                     }
                    //  $("#approvisionement_detailsAppros_0_Produit option").remove()
-                   $("#approvisionement_detailsAppros").find('select').find('option').remove()
+                   $("#approvisionement_detailsAppros_"+$index2+"_Produit").find('select').find('option').remove()
                 },
                 success: function(data) {
                     $produis = data
                     $.each(data, function(index, value) {
-                     $("#approvisionement_detailsAppros").find('select').find('option').append($('<option>',{value:value.produit_id, text: value.libelle}));
+                     $("#approvisionement_detailsAppros_"+$index2+"_Produit").find('select').find('option').append($('<option>',{value:value.produit_id, text: value.libelle}));
                     })
 
                     $(".loading").remove();
