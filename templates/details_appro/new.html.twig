@@ -29,16 +29,45 @@ function addItem (e){
     var $test  = $("#approvisionement_detailsAppros").find('table').find('tbody');
     // var $detalles = $("#scom_bundle_ventes_type_vente").closest('tbody');
 
-    var sel = $("#approvisionement_detailsAppros").find('select').find('option').remove()
+   // var sel = $("#approvisionement_detailsAppros").find('select').find('option').append($('<option>',{value:value.produit_id, text: value.libelle}))
+
+
 
 
     var $index = $detalles.children().length;
     var $index2 = $test.children().length;
+       // approvisionement_detailsAppros_[$index2]_Produit
+
+    // var sel = $("#approvisionement_detailsAppros")[$index2].find('select').find('option').remove()
     // var $detalle = $detalles.attr("data-prototype").replace(/__name__/g, $index).replace(/__num__/g, $index);
     var $detalle = $detalles.attr("data-prototype").replace(/__name__/g, $index2).replace(/__num__/g, $index2);
+   // $detalle.closest('tr')
+   // alert($detalle)
     //  var $test  = $("#scom_bundle_ventes_type_vente").find('table').find('tbody');
-    //  alert('$test')
+    //  alert($detalle)
     // $detalles.append( $detalle);
+     $.ajax({
+                type: 'get',
+                //url: 'http://localhost/Symfony/sf_ecommerce/web/app_dev.php/villes/' + $(this).val(),
+                url: Routing.generate('fournisseur_produits_recherche_ajax', {telephone:$('#approvisionement_fournisseur_TelephoneFournisseur').val()}),
+                beforeSend: function() {
+                    if ($(".loading").length == 0) {
+                         $("#approvisionement_detailsAppros").parent().append('<div class="loading"></div>');
+                    }
+                   //  $("#approvisionement_detailsAppros_0_Produit option").remove()
+                   $("#approvisionement_detailsAppros").find('select').find('option').remove()
+                },
+                success: function(data) {
+                    $produis = data
+                    $.each(data, function(index, value) {
+                     $("#approvisionement_detailsAppros").find('select').find('option').append($('<option>',{value:value.produit_id, text: value.libelle}));
+                    })
+
+                    $(".loading").remove();
+                }
+            }
+            );
+
     $test.append( $detalle)
 };
 
@@ -94,7 +123,7 @@ $("document").ready(function() {
         // else {
         //     $(".ville").val('');
         // }
-    alert(data)
+    //alert(data)
     });
 });
 </script>

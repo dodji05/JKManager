@@ -11,12 +11,13 @@ use App\Form\DetailsApproType;
 use App\Form\FournisseursType;
 use App\Repository\DetailsApproRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/details/appro")
+ * @Route("/approvisionnement")
  */
 class DetailsApproController extends Controller
 {
@@ -111,12 +112,80 @@ class DetailsApproController extends Controller
     }
 
     /**
+     * @Route("/nouveau/{id}/fournisseur", name="appro_nouveau", methods="GET|POST")
+     */
+    public function nouveau(Request $request, Fournisseurs $fournisseur): Response
+    {
+        $doctrine = $this->getDoctrine();
+        $appro = new Approvisionement();
+
+        $detailsAppro = new DetailsAppro();
+        // $tag1->name = 'tag1';
+        $appro->addDetailsAppro($detailsAppro );
+
+
+        $stockMagasin = new StockProduits();
+        $form = $this->createForm(ApprovisionementType::class, $appro)
+           ->add('fournisseur', FournisseursType::class, array('data' => $fournisseur, 'mapped' => false,));
+//
+        $form->handleRequest($request);
+        $doctrine = $this->getDoctrine();
+        $repfournisseur = $doctrine->getRepository('App:Fournisseurs');
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+//
+            foreach ($form->getData()->getDetailsAppros() as $ligneAppro) {
+                //On met a jour le stock
+                // On verifie si le produit est deja en magasin
+                $stockproduit = $doctrine->getRepository('App:StockProduits')->findOneBy(array('Produits'=>$ligneAppro->getProduit()));
+                if($stockproduit === null){
+                    // si le produit n'existe pas on creer une nouvelle entre du produit
+                    $stockMagasin->setProduits($ligneAppro->getProduit());
+                    $stockMagasin->setQteEnStock($ligneAppro->getQuantite());
+                    $em->persist($stockMagasin);
+                }
+                else{
+                    // s'il existe on fait une mise de la quantite
+                    $nouveaustock =  $stockproduit->getQteEnStock()  + $ligneAppro->getQuantite();
+                    $stockproduit->setQteEnStock($nouveaustock);
+                    $em->persist($stockproduit);
+                }
+                $ligneAppro->setApprovision($appro);
+                $em->persist($ligneAppro);
+            }
+           // $telclient = $request->get('approvisionement')['fournisseur']["TelephoneFournisseur"];
+
+            // on verifie si le client existe deja dans la base de donnnee
+           // $fournisseurdeja = $repfournisseur->findOneBy(array('TelephoneFournisseur'=>$telclient) );
+
+
+                $appro->setFournisseur($fournisseur);
+                $em->persist($appro);
+                $em->detach($fournisseur);
+                $em->flush();
+
+
+
+            return $this->redirectToRoute('resume_appro', ['id' => $appro->getId()]);
+        }
+        else {
+//            dump($form->getErrors(true));
+//            die();
+        }
+
+        return $this->render('details_appro/new.html.twig', [
+            'details_appro' => $detailsAppro,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
      * @Route("/{id}", name="details_appro_show", methods="GET")
      */
-    public function show(DetailsAppro $detailsAppro): Response
-    {
-        return $this->render('details_appro/show.html.twig', ['details_appro' => $detailsAppro]);
-    }
+//    public function show(DetailsAppro $detailsAppro): Response
+//    {
+//        return $this->render('details_appro/show.html.twig', ['details_appro' => $detailsAppro]);
+//    }
 
     /**
      * @Route("/{id}/edit", name="details_appro_edit", methods="GET|POST")
@@ -170,5 +239,44 @@ class DetailsApproController extends Controller
     public function recapAppro(Approvisionement $Appro){
         return $this->render('details_appro/details_appro.html.twig', ['details_appro' => $Appro]);
 
+    }
+
+    /**
+     * Returns a JSON string with the neighborhoods of the City with the providen id.
+     * @Route("/get-neighborhoods-from-city", name="person_list_neighborhoods", methods="GET|POST")
+
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function listNeighborhoodsOfCityAction(Request $request)
+    {
+        // Get Entity manager and repository
+        $em = $this->getDoctrine()->getManager();
+        $neighborhoodsRepository = $em->getRepository("App:Fournisseurs");
+
+        // Search the neighborhoods that belongs to the city with the given id as GET parameter "cityid"
+        $neighborhoods = $neighborhoodsRepository->createQueryBuilder("q")
+            ->leftJoin("q.Ligne", "l")
+            ->where("l.Produit = :cityid")
+            ->setParameter("cityid", $request->query->get("cityid"))
+            ->getQuery()
+            ->getResult();
+
+        // Serialize into an array the data that we need, in this case only name and id
+        // Note: you can use a serializer as well, for explanation purposes, we'll do it manually
+        $responseArray = array();
+        foreach($neighborhoods as $neighborhood){
+            $responseArray[] = array(
+                "id" => $neighborhood->getId(),
+                "name" => $neighborhood->getName()
+            );
+        }
+
+        // Return array with structure of the neighborhoods of the providen city id
+        return new JsonResponse($responseArray);
+
+        // e.g
+        // [{"id":"3","name":"Treasure Island"},{"id":"4","name":"Presidio of San Francisco"}]
     }
 }

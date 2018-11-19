@@ -11,6 +11,7 @@ namespace App\Form;
 
 use App\Entity\Approvisionement;
 use App\Entity\DetailsAppro;
+use App\Entity\Fournisseurs;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -19,12 +20,20 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 
 class ApprovisionementType extends AbstractType
+
 {
+//    private $fournisseur;
+//    private $DetailsApprovision ;
+//    public function __construct(Fournisseurs $fournisseur)
+//    {
+//        $this->fournisseur = $fournisseur;
+////        $this->DetailsApprovision = new DetailsApprovisionType($fournisseur);
+//    }
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('detailsAppros',CollectionType::class, array(
-                'entry_type' =>DetailsApproType::class,
+                'entry_type' => DetailsApproType::class,
                 'allow_add' => true
             ));
     }

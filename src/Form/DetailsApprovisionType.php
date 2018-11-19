@@ -16,13 +16,14 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use App\Entity\Fournisseurs;
 
-class DetailsApproType extends AbstractType
+class DetailsApprovisionType extends AbstractType
 {
     private $em;
-    public function __construct(EntityManagerInterface $em)
-    {
-        $this->em = $em;
-    }
+    private $fournisseur;
+//    public function __construct(Fournisseurs $fournisseur)
+//    {
+//        $this->fournisseur = $fournisseur;
+//    }
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -39,10 +40,12 @@ class DetailsApproType extends AbstractType
                 'query_builder' => function (EntityRepository $er) {
 
                     return  $er->createQueryBuilder('p')
-                        ->where('p.id = 0');
+                        ->leftJoin('p.Fournisseur','four')
+                        ->leftJoin('four.Fournisseur','f')
+                        ->where('f.id :=fournisseur')
+                        ->setParameter('fourniseur',$this->fournisseur)
 
-
-                    // ->orderBy('u.username', 'ASC');
+                     ->orderBy('p.LibelleProduit', 'ASC');
                 }])
             ->add('Quantite',null,[
                     'attr'=>[
